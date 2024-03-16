@@ -47,7 +47,17 @@ export const logOutUser = createAsyncThunk(
         }
     }
 )
+export const isAdmin = createAsyncThunk(
+    'canbo/isAdmin',
+    async (thunkAPI) => {
+        try {
+            return await userService.isAdmin();
+        } catch (error) {
+            return thunkAPI.rejectWithValue(error);
+        }
 
+    }
+)
 const getUserFromLocalStorage = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
 
 const stateInformation = {
