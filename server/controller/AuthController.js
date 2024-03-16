@@ -61,4 +61,10 @@ const changePassword = asyncHandler(async (request, response) => {
     }
 });
 
-module.exports={login,changePassword,createUser}
+
+const signup = asyncHandler(async (req, res,next) => {
+    console.log("SignUp:",req.body);
+    const newUser=await User.create(req.body);
+    next()
+});
+module.exports={login,changePassword,createUser,signup}
