@@ -56,10 +56,21 @@ const changePassword=async (userData)=>{
 
 
 }
+const isAdmin = async () => {
+    try {
+        const response = await axios.get(`${base_url}auth/checkAdmin`,config());
+        if (response) {
+            return true
+        }
+    } catch (e) {
+        return false
+    }
+}
 
 export const userService = {
     login,
     logout,
     signup,
-    changePassword
+    changePassword,
+    isAdmin
 }

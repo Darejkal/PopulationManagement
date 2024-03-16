@@ -28,4 +28,4 @@ const isAdmin=asyncHandler(async (req,res,next)=>{
 });
 
 
-module.exports={authMiddleware,isLeaderOrDeputyLeader: isAdmin};
+module.exports={authMiddleware, isAdmin};
