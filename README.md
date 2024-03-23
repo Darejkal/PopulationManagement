@@ -20,10 +20,11 @@ $ npm i
 ## Usage
 1. Run the React scripts
 ```
-$ cd client
-$ npm start
-```
-```
 $ cd server
 $ node index.js
 ```
+```
+$ cd client
+$ npm start
+```
+
