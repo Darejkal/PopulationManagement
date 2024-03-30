@@ -7,11 +7,12 @@ import SignIn  from "./route/SignIn";
 import SignUp from "./route/SignUp";
 import { Auth } from "./component/Auth";
 import { ListUser } from "./route/ListUser";
+import Dashboard from "@mui/icons-material/Dashboard";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
-      <Route path="/" element={<Auth element={<ListedView />} />}></Route>
+      <Route path="/" element={<Auth element={<Dashboard />} />}></Route>
         <Route path="/listUser" element={<ListUser />} />
         <Route path="/signin" element={<SignIn />} />
         <Route path="/signup" element={<SignUp />} />
