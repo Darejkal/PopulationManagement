@@ -135,9 +135,9 @@ export function ListedView({children}) {
                         flexGrow: 1,
                         height: '100%',
                         overflow: 'auto',
-                        marginTop: '64px',
                     }}
                 >
+                <Toolbar />
                     {children}
                 </Box>
             </Box>

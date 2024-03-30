@@ -7,7 +7,7 @@ import SignIn  from "./route/SignIn";
 import SignUp from "./route/SignUp";
 import { Auth } from "./component/Auth";
 import { ListUser } from "./route/ListUser";
-import Dashboard from "@mui/icons-material/Dashboard";
+import { Dashboard } from "./route/Dashboard";
 function App() {
   return (
     <BrowserRouter>
