@@ -11,7 +11,7 @@ import { Accordion, ListGroup } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AdminWrap } from "../component/Auth";
 
-export default function MainListItems() {
+export default function ListItems() {
   const navigate = useNavigate();
   return (
     <React.Fragment>
