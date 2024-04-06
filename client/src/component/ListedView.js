@@ -69,8 +69,8 @@ const defaultTheme = createTheme();
 
 export function ListedView({children}) {
     const [open, setOpen] = React.useState(false);
-    const toggleDrawer = () => {
-        setOpen(!open);
+    const toggleDrawer = (flag) => {
+        setOpen(flag);
     };
 
     return (
@@ -80,20 +80,20 @@ export function ListedView({children}) {
                 <AppBar position="absolute" open={open}>
                     <Toolbar
                         sx={{
-                            pr: '24px', // keep right padding when drawer closed
+                            pr: '10rem', // keep right padding when drawer closed
                         }}
                     >
                         <IconButton
                             edge="start"
                             color="inherit"
                             aria-label="open drawer"
-                            onClick={toggleDrawer}
+                            onClick={()=>toggleDrawer(true)}
                             sx={{
-                                marginRight: '36px',
+                                marginRight: '2rem',
                                 ...(open && { display: 'none' }),
                             }}
                         >
-                            <MenuIcon />
+                            <MenuIcon/>
                         </IconButton>
                         <Typography
                             component="h1"
@@ -113,16 +113,16 @@ export function ListedView({children}) {
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'flex-end',
-                            px: [1],
+                            px: ["1rem"],
                         }}
                     >
-                        <IconButton onClick={toggleDrawer}>
+                        <IconButton onClick={()=>toggleDrawer(false)}>
                             <ChevronLeftIcon />
                         </IconButton>
                     </Toolbar>
                     <Divider />
-                    <List component="nav">
-                        <ListItems/>
+                    <List component="nav" onClick={()=>toggleDrawer(true)}>
+                        <ListItems isDrawerOpen={open}/>
                     </List>
                 </Drawer>
                 <Box

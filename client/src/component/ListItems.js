@@ -2,134 +2,91 @@ import * as React from "react";
 
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import DashboardIcon from "@mui/icons-material/Dashboard";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
-import { Accordion, ListGroup } from "react-bootstrap";
+import { Accordion, ListGroup, useAccordionButton } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { AdminWrap } from "../component/Auth";
+import { SECURITY_LEVEL,ROUTE_LIST } from "../utils/config";
 
-export default function ListItems() {
-  const navigate = useNavigate();
-  return (
-    <React.Fragment>
-      <Accordion>
-        <AdminWrap
-          e
-          element={
-            <Accordion.Item eventKey="0">
-              <Accordion.Header>
-                <ListItemIcon>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <span style={{ fontSize: "15px" }}>Quản lý cán bộ</span>
-                  }
-                />
-              </Accordion.Header>
-              <Accordion.Body>
-                <ListGroup>
-                  <ListGroup.Item onClick={() => navigate("/listUser")}>
-                    Xem cán bộ
-                  </ListGroup.Item>
-                  <ListGroup.Item onClick={() => navigate("/addUser")}>
-                    Thêm cán bộ
-                  </ListGroup.Item>
-                </ListGroup>
-              </Accordion.Body>
-            </Accordion.Item>
-          }
-          nelement={<></>}
-        />
-        <AdminWrap
-            e
-            element={
-              <Accordion.Item eventKey="1">
-                <Accordion.Header>
-                  <ListItemIcon>
-                    <PeopleIcon />
-                  </ListItemIcon>
-                  <ListItemText
-                      primary={
-                        <span style={{ fontSize: "15px" }}>Quản lý khoản phí</span>
-                      }
-                  />
-                </Accordion.Header>
-                <Accordion.Body>
-                  <ListGroup>
-                    <ListGroup.Item onClick={() => navigate("/fee-recurring")}>
-                      Phí thu
-                    </ListGroup.Item>
-                    <ListGroup.Item onClick={() => navigate("/fee-contribution")}>
-                      Đóng góp
-                    </ListGroup.Item>
-                  </ListGroup>
-                </Accordion.Body>
-              </Accordion.Item>
-            }
-            nelement={<></>}
-        />
-
-        <AdminWrap
-          e
-          element={
-            <Accordion.Item eventKey="2">
-              <Accordion.Header>
-                <ListItemIcon>
-                  <ShoppingCartIcon />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <span style={{ fontSize: "15px" }}>Quản lý hộ khẩu</span>
-                  }
-                />
-              </Accordion.Header>
-              <Accordion.Body>
-                <ListGroup>
-                  <ListGroup.Item
-                    onClick={() => {
-                      navigate("/HouseholdList");
-                    }}
-                  >
-                    Xem danh sách hộ khẩu
-                  </ListGroup.Item>
-                </ListGroup>
-              </Accordion.Body>
-            </Accordion.Item>
-          }
-          nelement={<></>}
-        />
-        <Accordion.Item eventKey="3">
-          <Accordion.Header>
-            <ListItemIcon>
-              <LayersIcon />
-            </ListItemIcon>
-            <ListItemText
-              primary={<span style={{ fontSize: "15px" }}>Phí và đóng góp</span>}
-            />
-          </Accordion.Header>
-          <Accordion.Body>
-            <ListGroup>
-              <ListGroup.Item
-                onClick={() => {
-                  navigate("/GetFACMana");
-                }}
-              >
-                Lập danh sách
-              </ListGroup.Item>
-              <ListGroup.Item onClick={() => navigate("/CreatedList")}>
-                Xem danh sách
-              </ListGroup.Item>
-              <ListGroup.Item onClick={() => navigate("/GetStatistic")}>
-                Thống kê
-              </ListGroup.Item>
-            </ListGroup>
-          </Accordion.Body>
-        </Accordion.Item>
-      </Accordion>
-    </React.Fragment>
-  );
+export default function ListItems({isDrawerOpen}) {
+  const accordionRef=React.useRef(null);
+	const [listItemChildren, setListItemChildren] = React.useState(ROUTE_LIST);
+	return (
+		<React.Fragment>
+			<Accordion ref={accordionRef}>
+				{listItemChildren.map((v, i) => (
+					<ListItemsChild
+            key={`list_item_child_${i}`}
+						icon={v.icon}
+						security={v.security}
+						eventKey={`${i}`}
+						listItemsChildNodes={v.nodes}
+						listItemsChildTitle={v.title}
+            hiddenFromNavList={v.hiddenFromNavList}
+            isDrawerOpen={isDrawerOpen}
+					/>
+				))}
+			</Accordion>
+		</React.Fragment>
+	);
 }
+const ListItemsChild = ({
+	eventKey,
+	listItemsChildNodes,
+	listItemsChildTitle,
+	security,
+	icon,
+  hiddenFromNavList,
+  isDrawerOpen
+}) => {
+  const isOpenRef=React.useRef(false);
+  const accordionItemRef=React.useRef(null);
+	const navigate = useNavigate();
+	const listItemChildAccordion = !hiddenFromNavList&&(
+		<Accordion.Item ref={accordionItemRef} onSelect={()=>{
+      isOpenRef.current=!isOpenRef.current
+      console.log(isOpenRef.current);
+    }} eventKey={eventKey}>
+			<Accordion.Header>
+				<ListItemIcon>{icon}</ListItemIcon>
+				<ListItemText
+					primary={
+						<span style={{ fontSize: "1rem" }}>{listItemsChildTitle}</span>
+					}
+				/>
+			</Accordion.Header>
+			<Accordion.Body>
+				<ListGroup>
+					{listItemsChildNodes.map((v) => {
+						if (v.security == SECURITY_LEVEL.ADMIN) {
+							return !v.hiddenFromNavList&&(
+								<AdminWrap>
+									<ListGroup.Item
+										onClick={() => {
+											navigate(v.link);
+										}}
+									>
+										{v.title}
+									</ListGroup.Item>
+								</AdminWrap>
+							);
+						}
+						return !v.hiddenFromNavList&&(
+							<ListGroup.Item
+								onClick={() => {
+									navigate(v.link);
+								}}
+							>
+								{v.title}
+							</ListGroup.Item>
+						);
+					})}
+				</ListGroup>
+			</Accordion.Body>
+		</Accordion.Item>
+	);
+	if (security==SECURITY_LEVEL.ADMIN) {
+		return <AdminWrap>{listItemChildAccordion}</AdminWrap>;
+	} else {
+		return listItemChildAccordion;
+	}
+};
