@@ -23,17 +23,6 @@ const hoKhauSchema = new mongoose.Schema(
             required: true,
             unique: true
         },
-
-        maKhuVuc: {
-            type: String,
-            required: true
-        },
-
-        diaChi: {
-            type: String,
-            required: true
-        },
-        
     }
 )
 

@@ -1,13 +1,7 @@
 const mongoose = require("mongoose");
 const hoGiaDinh_KhoanPhiSchema = new mongoose.Schema(
-    {
-        ID: {
-            type: String,
-            required: true,
-            unique: true
-        },
-        
-        idHoGiaDinh: {
+    {   
+        idHoKhau: {
             type: String,
             required: true
         },
@@ -31,5 +25,8 @@ const hoGiaDinh_KhoanPhiSchema = new mongoose.Schema(
             type: Date,
         }
     }
+)
+hoGiaDinh_KhoanDongGopSchema.index(
+    {idHoKhau:1,idKhoanPhi:1},{unique:true}
 )
 module.exports = mongoose.models.HoGiaDinh_KhoanPhi || mongoose.model("HoGiaDinh_KhoanPhi",hoGiaDinh_KhoanPhiSchema)

@@ -21,7 +21,15 @@ const canHoSchema = new mongoose.Schema(
         chatLuong: {
             type: Date,
             required: true
-        }
+        },
+        diaChi: {
+            type: String,
+            required: true
+        },
+        maKhuVuc: {
+            type: String,
+            required: true
+        },
     }
 )
 
