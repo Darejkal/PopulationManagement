@@ -5,9 +5,13 @@ const asyncHandler = require("express-async-handler")
 
 //function
 const createUser = asyncHandler(async (req, res) => {
-    response.status(401).send({
-        message:"Not implemented",
-    })
+    const {email,password} =req.body;
+    const currentUser=await User.findOne({email:email});
+    if(currentUser){
+        res.status(500).send({message:"user existed"});
+        return;
+    } 
+    User.create({email,password})
 })
 
 const login = asyncHandler(async (request, response) => {

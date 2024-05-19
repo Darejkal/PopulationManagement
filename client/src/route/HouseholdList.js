@@ -6,10 +6,19 @@ import {
     useMaterialReactTable,
     displayColumnDefOptions,
 } from 'material-react-table';
-import { TextField } from "@mui/material";
-import { Box } from '@mui/material';
-import { Button } from'@mui/material';
-import { palette } from '@mui/material/colors';
+
+import {
+    TextField,
+    Box,
+    Button,
+    Typography,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+} from '@mui/material'
+
 const data = [
     {
       id: 1,
@@ -55,10 +64,20 @@ export const HouseholdList = ()=>{
     };
 
     const Form = ()=>{
+        const [open, setOpen] = useState(null);
+
+        const handleClickChoose = ()=>{
+            setOpen(true);
+        };
+
+        const handleClose = ()=>{
+            setOpen(null);
+        };
+
         return(
             <div>
                 <div>
-                    <h2>Thêm hộ gia đình</h2>
+                    <Typography variant="h4" m={2} fontWeight='bold'>Thêm hộ gia đình</Typography>
                 </div>
 
                 <Box
@@ -72,7 +91,13 @@ export const HouseholdList = ()=>{
                     <TextField required fullWidth id="outlined-basic" label="Mã hộ khẩu" variant="outlined" />
                     <TextField required fullWidth id="outlined-basic" label="Mã khu vực" variant="outlined" />
                     <TextField required fullWidth id="outlined-basic" label="Địa chỉ" variant="outlined" />
-                    <TextField required fullWidth id="outlined-basic" label="Chủ hộ" variant="outlined" />
+                    <TextField required disabled fullWidth id="outlined-basic" label="Chủ hộ" variant="outlined" />
+                    <Button variant="contained" onClick={handleClickChoose}>Chọn</Button>
+                    <Dialog
+                        open={open}
+                        onClose={handleClose}>
+                            
+                        </Dialog>
                     <TextField required disabled fullWidth id="outlined-disabled"
                                 label="Số CCCD Chủ hộ" 
                                 InputProps={{
@@ -86,18 +111,18 @@ export const HouseholdList = ()=>{
                 </Box>
                 
                 <div>
-                    Thành viên trong hộ (nháp)
+                    <Typography variant="h6" m={2} fontWeight='bold'>Thành viên trong hộ</Typography>
                 </div>
 
                 <div>
-                    <Button variant="contained" sx={{mr:4, mt:4, mb:4}} color='success' onClick={()=>goBack()}>Lưu</Button>
+                    <Button variant="contained" sx={{mr:4, mt:4, mb:4, ml:1}} color='success' onClick={()=>goBack()}>Lưu</Button>
                 </div>
 
                 <div>
                 </div>
 
                 <div>
-                    <Button variant="outlined" sx={{mr:4, mb:4  }} onClick={()=>goBack()}>Trở về</Button>
+                    <Button variant="outlined" sx={{mr:4, mb:4, ml:1}} onClick={()=>goBack()}>Trở về</Button>
                 </div>
             </div>
         )
@@ -127,7 +152,7 @@ export const HouseholdList = ()=>{
         return(
             <div>
                 <div>
-                    <h2>Chi tiết về hộ gia đình</h2>
+                    <Typography variant="h4" m={2} fontWeight='bold'>Chi tiết hộ gia đình</Typography>
                 </div>
                 <Box
                     component="form"
@@ -152,13 +177,17 @@ export const HouseholdList = ()=>{
                                     readOnly: true,
                                 }}/>
                 </Box>
+
                 <div>
-                    Thành viên trong hộ (nháp)
+                    <Typography variant="h6" m={2} fontWeight='bold'>Thành viên trong hộ</Typography>
+                </div>
+
+                <div>
                     <MaterialReactTable table={membersTable}></MaterialReactTable>
                 </div>
 
                 <div>
-                    <Button variant="contained" sx={{mr:4, mt:4, mb:4  }} onClick={()=>goBack()}>Sửa hộ khẩu</Button>
+                    <Button variant="contained" sx={{mr:4, mt:4, mb:4, ml:1}} onClick={()=>goBack()}>Sửa hộ khẩu</Button>
                     <Button variant="contained" onClick={()=>goBack()} color='error'>Xóa hộ khẩu</Button>
                 </div>
 
@@ -166,7 +195,7 @@ export const HouseholdList = ()=>{
                 </div>
 
                 <div>
-                    <Button variant="outlined" sx={{mr:4, mb:4  }} onClick={()=>goBack()}>Trở về</Button>
+                    <Button variant="outlined" sx={{mr:4, mb:4, ml:1}} onClick={()=>goBack()}>Trở về</Button>
                 </div>
             </div>
         )
@@ -211,11 +240,11 @@ export const HouseholdList = ()=>{
                 {displayList && 
                     <div>
                         <div>
-                            <h2>Danh sách Hộ khẩu</h2>
+                            <Typography variant="h4" m={2} fontWeight='bold'>Danh sách hộ gia đình</Typography>
                         </div>
 
                         <div>
-                            <Button variant="contained" sx={{mr:4, mb:4}} color='success' onClick={()=>handleAddHousehold()}>Thêm hộ khẩu</Button>
+                            <Button variant="contained" sx={{mr:4, mb:4, ml:2}} color='success' onClick={()=>handleAddHousehold()}>Thêm hộ khẩu</Button>
                         </div>
 
                         <MaterialReactTable table={table}/>
