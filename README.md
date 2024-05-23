@@ -10,7 +10,7 @@ npm install npm@latest -g
 2. Install NPM packages
 ```
 $ cd client
-$ npm ci
+$ npm i --force
 ```
 ```
 $ cd server

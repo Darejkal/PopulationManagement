@@ -3,13 +3,6 @@ const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 
-//function
-const createUser = asyncHandler(async (req, res) => {
-  response.status(401).send({
-    message: "Not implemented",
-  });
-});
-
 const login = asyncHandler(async (request, response) => {
   const { email, password } = request.body;
   const currentUser = await User.findOne({ email: email });
