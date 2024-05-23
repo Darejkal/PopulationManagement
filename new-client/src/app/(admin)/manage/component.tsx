@@ -1,10 +1,6 @@
 import React, { useState } from 'react';
 import { Table, Button, Form, Modal } from 'react-bootstrap';
-import Box from '@mui/material/Box';
-import Tab from '@mui/material/Tab';
-import TabContext from '@mui/lab/TabContext';
-import TabList from '@mui/lab/TabList';
-import TabPanel from '@mui/lab/TabPanel';
+
 export const UserManagement = () => {
   const [users, setUsers] = useState([
     { stt: 1, username: 'user1', name: 'Nguyễn Văn A' },
