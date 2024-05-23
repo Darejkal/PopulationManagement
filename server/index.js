@@ -4,9 +4,9 @@ const app = express();
 const port = 5000
 const bodyParser = require("body-parser");
 const authRouter=require("./route/authRoute")
-const hoKhauRouter = require("./route/hoKhauRoute")
+// const hoKhauRouter = require("./route/hoKhauRoute")
 // const listRouter=require("./route/listRoute")
-// const feeRouter=require("./route/feeRoute");
+const feeRouter=require("./route/feeRoute");
 // const householdRouter=require("./route/householdRoute");
 // const userRouter=require("./route/userRoute");
 // const statisticRouter=require("./route/statisticRoute");
@@ -28,9 +28,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use("/api/auth",authRouter);
-app.use("/api/hoKhau",hoKhauRouter);
+// app.use("/api/hoKhau",hoKhauRouter);
 // app.use("/api/list",listRouter);
-// app.use("/api/fee",feeRouter);
+app.use("/api/fee",feeRouter);
 // app.use("/api/contribution",contributionRouter);
 // app.use("/api/household",householdRouter);
 // app.use("/api/user",userRouter);
