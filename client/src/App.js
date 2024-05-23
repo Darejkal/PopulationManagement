@@ -13,6 +13,7 @@ function App() {
 	return (
 		<BrowserRouter>
 			<Routes>
+				
 				{/* <Route path="/" element={<Auth><Dashboard /></Auth>}></Route>
 				<Route path="/listuser" element={<ListUser />} />
 				<Route path="/signin" element={<SignIn />} />
@@ -24,7 +25,7 @@ function App() {
 					if (v.routeComponent) {
 						vComponent = <Auth security={v.security}>{v.routeComponent}</Auth>;
 					}
-					return <Route path={v.link} element={vComponent}></Route>;
+					return <Route path={v.link} element={<ListedView>{vComponent}</ListedView>}></Route>;
 				})}
 			</Routes>
 		</BrowserRouter>
