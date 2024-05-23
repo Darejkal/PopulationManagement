@@ -1,12 +1,15 @@
 const express=require("express")
 const router=express.Router();
 const {
-    getAllFee, updateFee, deleteFee, createFee
-}=require("../controller/FeeController")
+    getAllFee, 
+    updateFee, 
+    deleteFee, 
+    createFee
+} = require("../controller/feeController"); 
 const {authMiddleware,isAdmin} = require("../middleware/AuthMiddleware");
 
-router.post("/getAllFee",authMiddleware,isAdmin,getAllFee);
-router.post("/updateFee",authMiddleware,isAdmin,updateFee);
-router.post("/deleteFee",authMiddleware,isAdmin,deleteFee);
-router.post("/createFee",authMiddleware,isAdmin,createFee);
+router.get("/", authMiddleware, getAllFee);
+router.put("/:id", authMiddleware, updateFee);
+router.post("/", authMiddleware, createFee);
+router.delete("/:id", authMiddleware, deleteFee);
 module.exports=router;
