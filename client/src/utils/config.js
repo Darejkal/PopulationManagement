@@ -8,6 +8,8 @@ import { Dashboard } from "../route/Dashboard";
 import { ListUser } from "../route/ListUser";
 import { UserFeedback } from "../route/UserFeedback";
 import { UserInfo } from "../route/UserInfo";
+import { HouseholdList } from "../route/ListFamily";
+import { HouseholdForm } from "../route/AddFamily";
 import SignIn from "../route/SignIn";
 import SignUp from "../route/SignUp";
 export const base_url = "http://localhost:5000/api/";
@@ -100,11 +102,13 @@ export const ROUTE_LIST = [
 		security: SECURITY_LEVEL.ADMIN,
 		nodes: [
 			{
+				routeComponent: <HouseholdList></HouseholdList>,
 				title: "Xem hộ khẩu",
-				link: "/listfamily",
+				link: "/listFamily",
 				security: SECURITY_LEVEL.ADMIN,
 			},
 			{
+				routeComponent: <HouseholdForm></HouseholdForm>,
 				title: "Thêm hộ khẩu",
 				link: "/addfamily",
 				security: SECURITY_LEVEL.ADMIN,
