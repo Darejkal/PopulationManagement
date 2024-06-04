@@ -1,10 +1,10 @@
 
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
-import {feeService} from "../services/feeService";
+import {feeService} from "../service/feeService";
 
 
 export const getAllFees = createAsyncThunk(
-    'fees',
+    'fee',
     async (thunkAPI) => {
         try {
             return await feeService.getAllFees();
@@ -21,7 +21,7 @@ const feesState = {
 
 
 export const feeSlice = createSlice({
-    name: 'fees',
+    name: 'fee',
     initialState: feesState,
     reducers: {},
     extraReducers: (builder) => {

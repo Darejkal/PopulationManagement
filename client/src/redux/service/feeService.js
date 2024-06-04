@@ -3,7 +3,7 @@ import { base_url, config } from "../../utils/config";
 
 const getAllFees = async () => {
   try {
-    const response = await axios.get(`${base_url}fees`, {
+    const response = await axios.get(`${base_url}fee`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
         Accept: "application/json",
@@ -17,7 +17,7 @@ const getAllFees = async () => {
 
 const updateFee = async (id, data) => {
   try {
-    const response = await axios.put(`${base_url}fees/${id}`, data, config());
+    const response = await axios.put(`${base_url}fee/${id}`, data, config());
     return response.data.fees;
   } catch (error) {
     throw new Error(error.message);
@@ -26,7 +26,7 @@ const updateFee = async (id, data) => {
 
 const createFee = async (data) => {
   try {
-    const response = await axios.post(`${base_url}fees`, data, config());
+    const response = await axios.post(`${base_url}fee`, data, config());
     return response.data.fees;
   } catch (error) {
     throw new Error(error.message);
@@ -35,7 +35,7 @@ const createFee = async (data) => {
 
 const deleteFee = async (id) => {
   try {
-    const response = await axios.delete(`${base_url}fees/${id}`, config());
+    const response = await axios.delete(`${base_url}fee/${id}`, config());
     return response.data.fees;
   } catch (error) {
     throw new Error(error.message);

@@ -104,9 +104,8 @@ export const userSlice = createSlice({
                 state.user = null;
 
             }).addCase(changePassword.pending, (state) => {
-            state.status = 'Loading';
-
-        })
+                state.status = 'Loading';
+            })
             .addCase(changePassword.fulfilled, (state, action) => {
                 state.status = 'Successful';
             })
