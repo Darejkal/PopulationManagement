@@ -84,6 +84,19 @@ const getProfiles = async () => {
   }
 };
 
+const getUsers = async () => {
+  try {
+    const response = await axios.get(`${base_url}auth/getUsers`, config());
+    if (response.data) {
+      return response.data;
+    } else {
+      throw new Error("No data received from the server");
+    }
+  } catch (error) {
+    throw new Error("Error getting user data: " + error.message);
+  }
+};
+
 const isAdmin = async () => {
   try {
     const response = await axios.get(`${base_url}auth/checkAdmin`, config());
@@ -101,6 +114,7 @@ export const userService = {
   signup,
   changePassword,
   isAdmin,
+  getUsers,
   getProfiles,
   updateProfile,
 };

@@ -17,17 +17,17 @@ import SignUp from "../route/SignUp";
 export const base_url = "http://localhost:5000/api/";
 
 export const config = () => {
-	return {
-		headers: {
-			Authorization: `Bearer ${localStorage.getItem("token")}`,
-			Accept: "application/json",
-		},
-	};
+  return {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+      Accept: "application/json",
+    },
+  };
 };
 export const SECURITY_LEVEL = {
-	USER: "user",
-	ADMIN: "admin",
-	GUEST: null,
+  USER: "user",
+  ADMIN: "admin",
+  GUEST: null,
 };
 
 export const ROUTE_LIST = [

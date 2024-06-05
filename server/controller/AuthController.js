@@ -71,7 +71,7 @@ const changePassword = asyncHandler(async (request, response) => {
 const updateProfile = asyncHandler(async (request, response) => {
   const { firstName, lastname, address, phoneNumber } = request.body;
   const updatedUser = await User.findOneAndUpdate(
-    { _id: request.user._id },
+    { email: request.body.email },
     {
       firstName: firstName,
       lastname: lastname,
@@ -88,6 +88,14 @@ const updateProfile = asyncHandler(async (request, response) => {
   response.status(200).send(updatedUser);
 });
 
+const getUsers = asyncHandler(async (request, response) => {
+  const users = await User.find();
+  if (!users) {
+    return response.status(404).send({ message: "No users found" });
+  }
+  response.status(200).send(users);
+});
+
 const signup = asyncHandler(async (req, res, next) => {
   console.log("SignUp:", req.body);
   const newUser = await User.create(req.body);
@@ -96,8 +104,8 @@ const signup = asyncHandler(async (req, res, next) => {
 module.exports = {
   login,
   changePassword,
-
   signup,
+  getUsers,
   getProfiles,
   updateProfile,
 };
