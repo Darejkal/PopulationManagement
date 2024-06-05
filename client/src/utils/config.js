@@ -5,6 +5,7 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import { Dashboard } from "../route/Dashboard";
+import  FeeRecurring from "../component/FeeManager/FeeRecurring";
 import { ListUser } from "../route/ListUser";
 import { UserFeedback } from "../route/UserFeedback";
 import { UserInfo } from "../route/UserInfo";
@@ -86,6 +87,7 @@ export const ROUTE_LIST = [
 				title: "Xem khoản phí",
 				link: "/listfee",
 				security: SECURITY_LEVEL.USER,
+				routeComponent: <FeeRecurring />,
 			},
 			{
 				title: "Thêm khoản phí",

@@ -1,23 +1,32 @@
 const mongoose = require("mongoose");
 const khoanPhiSchema = new mongoose.Schema(
     {
-        ID: {
-            type: String,
+        name:{
+            type:String,
+            required:true
+        },
+        amount:{
+            type:Number,
             required: true,
-            unique: true
         },
-        tenPhi: {
+        description:{
+            type:String,
+        },
+        feeType:{
+            type:String,
+            enum:["Household","Individual"],
+        },
+        frequency:{
             type: String,
-            required: true
-        },
-        donGia: {
-            type: Number,
-            required: true
-        },
-        chatLuong: {
-            type: String,
-            required: true
+            enum:["yearly","monthly"],
         }
+
+    },
+    {
+        timestamps:true
     }
-)
+);
 module.exports = mongoose.models.KhoanPhi || mongoose.model("KhoanPhi",khoanPhiSchema)
+
+
+
