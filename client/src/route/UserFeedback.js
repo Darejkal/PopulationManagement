@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { Button, TextField, Typography, Container } from '@material-ui/core';
-import { ListedView } from '../component/ListedView';
+import React, { useState } from "react";
+import { Button, TextField, Typography, Container } from "@material-ui/core";
+import { ListedView } from "../component/ListedView";
 
 const FeedbackForm = () => {
-  const [feedback, setFeedback] = useState('');
+  const [feedback, setFeedback] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleFeedbackChange = (event) => {
@@ -48,6 +48,6 @@ const FeedbackForm = () => {
     </Container>
   );
 };
-export const UserFeedback = ()=>{
-    return <ListedView><FeedbackForm/></ListedView>
-}
+export const UserFeedback = () => {
+  return <FeedbackForm />;
+};

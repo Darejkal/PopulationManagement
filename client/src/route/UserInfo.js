@@ -225,9 +225,5 @@ const UserInfoTable = () => {
 };
 
 export const UserInfo = () => {
-  return (
-    <ListedView>
-      <UserInfoTable />
-    </ListedView>
-  );
+  return <UserInfoTable />;
 };
