@@ -1,0 +1,5 @@
+import axios from "axios";
+import {base_url} from "../../utils/config";
+const getHousehold= async ()=>{
+    const response = await axios.get(`${base_url}household/household`);
+}

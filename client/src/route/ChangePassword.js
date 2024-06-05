@@ -30,7 +30,7 @@ export default function ChangePassword() {
       dispatch(changePassword(value))
         .unwrap()
         .then(() => {
-          navigate("/singin");
+          navigate("/signin");
         })
         .catch((error) => {
           console.log("Login error:", error);
