@@ -14,7 +14,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import ListItems from "./ListItems";
 import UserDropdown from "./UserDropdown";
-
 const drawerWidth = 240;
 
 export const AppBar = styled(MuiAppBar, {
