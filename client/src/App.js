@@ -7,6 +7,7 @@ import SignIn from "./route/SignIn";
 import SignUp from "./route/SignUp";
 import { Auth } from "./component/Auth";
 import { ListUser } from "./route/ListUser";
+import Profiles from "./route/Profiles";
 import { Dashboard } from "./route/Dashboard";
 import { ROUTE_LIST, SECURITY_LEVEL } from "./utils/config";
 function App() {
