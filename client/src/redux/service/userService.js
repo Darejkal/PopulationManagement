@@ -71,6 +71,23 @@ const updateProfile = async (userData) => {
   }
 };
 
+const updateUser = async (userData) => {
+  try {
+    const response = await axios.post(
+      `${base_url}auth/updateUser`,
+      userData,
+      config()
+    );
+    if (response.data) {
+      return response.data;
+    } else {
+      throw new Error("No data received from the server");
+    }
+  } catch (error) {
+    throw new Error("Error updating profile: " + error.message);
+  }
+};
+
 const getProfiles = async () => {
   try {
     const response = await axios.get(`${base_url}auth/profiles`, config());
@@ -117,4 +134,5 @@ export const userService = {
   getUsers,
   getProfiles,
   updateProfile,
+  updateUser,
 };

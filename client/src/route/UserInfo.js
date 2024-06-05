@@ -17,7 +17,7 @@ import {
   Grid,
 } from "@material-ui/core";
 import { ListedView } from "../component/ListedView";
-import { updateProfile } from "../redux/slice/userSlice";
+import { updateProfile, updateUser } from "../redux/slice/userSlice";
 
 let data;
 const UserInfoTable = () => {
@@ -27,16 +27,16 @@ const UserInfoTable = () => {
   const [users, setUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
 
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        data = await userService.getUsers();
-        setUsers(data);
-      } catch (error) {
-        console.error("Error fetching profiles:", error.message);
-      }
-    };
+  const fetchUsers = async () => {
+    try {
+      data = await userService.getUsers();
+      setUsers(data);
+    } catch (error) {
+      console.error("Error fetching profiles:", error.message);
+    }
+  };
 
+  useEffect(() => {
     fetchUsers();
   }, []);
 
@@ -60,10 +60,11 @@ const UserInfoTable = () => {
       address: data.get("address"),
       phoneNumber: data.get("phoneNumber"),
     };
-    dispatch(updateProfile(value))
+    dispatch(updateUser(value))
       .unwrap()
       .then(() => {
-        navigate("/");
+        fetchUsers();
+        handleClose();
       })
       .catch((error) => {
         console.log("Update profile error:", error);

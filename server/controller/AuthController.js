@@ -71,6 +71,26 @@ const changePassword = asyncHandler(async (request, response) => {
 const updateProfile = asyncHandler(async (request, response) => {
   const { firstName, lastname, address, phoneNumber } = request.body;
   const updatedUser = await User.findOneAndUpdate(
+    { _id: request.user._id },
+    {
+      firstName: firstName,
+      lastname: lastname,
+      address: address,
+      phoneNumber: phoneNumber,
+    },
+    { new: true } // This option returns the modified document
+  );
+
+  if (!updatedUser) {
+    return response.status(404).send({ message: "User not found" });
+  }
+
+  response.status(200).send(updatedUser);
+});
+
+const updateUser = asyncHandler(async (request, response) => {
+  const { firstName, lastname, address, phoneNumber } = request.body;
+  const updatedUser = await User.findOneAndUpdate(
     { email: request.body.email },
     {
       firstName: firstName,
@@ -108,4 +128,5 @@ module.exports = {
   getUsers,
   getProfiles,
   updateProfile,
+  updateUser,
 };
