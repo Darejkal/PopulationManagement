@@ -24,7 +24,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 
 let data;
-const Profiles = () => {
+export default function Profiles() {
   const defaultTheme = createTheme();
   const navigate = useNavigate();
   const [profiles, setProfiles] = useState(null);
@@ -116,11 +116,36 @@ const Profiles = () => {
             </TableRow>
           </TableBody>
         </Table>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            margin: "30px 0px",
+          }}
+        >
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              navigate("/changePassword");
+            }}
+            style={{ marginRight: "20px" }}
+          >
+            Đổi mật khẩu
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              navigate("/updateProfile");
+            }}
+          >
+            Đổi thông tin cá nhân
+          </Button>
+        </div>
       </TableContainer>
     </div>
   ) : null;
 
   return <ListedView children={content}></ListedView>;
-};
-
-export default Profiles;
+}
