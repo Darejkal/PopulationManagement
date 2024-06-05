@@ -96,7 +96,7 @@ const signup = asyncHandler(async (req, res, next) => {
 module.exports = {
   login,
   changePassword,
-  createUser,
+
   signup,
   getProfiles,
   updateProfile,
