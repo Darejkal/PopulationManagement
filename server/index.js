@@ -7,6 +7,7 @@ const authRouter=require("./route/authRoute")
 // const hoKhauRouter = require("./route/hoKhauRoute")
 // const listRouter=require("./route/listRoute")
 const feeRouter=require("./route/feeRoute");
+const contributionRouter=require("./route/contributionRoute");
 // const householdRouter=require("./route/householdRoute");
 // const userRouter=require("./route/userRoute");
 // const statisticRouter=require("./route/statisticRoute");
@@ -31,7 +32,7 @@ app.use("/api/auth",authRouter);
 // app.use("/api/hoKhau",hoKhauRouter);
 // app.use("/api/list",listRouter);
 app.use("/api/fee",feeRouter);
-// app.use("/api/contribution",contributionRouter);
+app.use("/api/contributions",contributionRouter);
 // app.use("/api/household",householdRouter);
 // app.use("/api/user",userRouter);
 // app.use("/api/statistic",statisticRouter);

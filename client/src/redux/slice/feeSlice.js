@@ -6,7 +6,7 @@ export const getAllFees = createAsyncThunk(
   'fee/getAllFees',
   async (_, thunkAPI) => {
     try {
-      return await feeService.getAllFees;
+      return await feeService.getAllFees();
     } catch (error) {
       return thunkAPI.rejectWithValue(error.message);
     }

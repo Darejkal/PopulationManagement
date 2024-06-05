@@ -5,7 +5,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import { Dashboard } from "../route/Dashboard";
-import  FeeRecurring from "../component/FeeManager/FeeRecurring";
+import  FeeRoute from "../route/FeeRoute";
+import  ContributionRoute from "../route/ContributionRoute";
 import { ListUser } from "../route/ListUser";
 import { UserFeedback } from "../route/UserFeedback";
 import { UserInfo } from "../route/UserInfo";
@@ -84,15 +85,16 @@ export const ROUTE_LIST = [
 		security: SECURITY_LEVEL.USER,
 		nodes: [
 			{
-				title: "Xem khoản phí",
-				link: "/listfee",
+				title: "Phí cố định",
+				link: "/recurringfee",
 				security: SECURITY_LEVEL.USER,
-				routeComponent: <FeeRecurring />,
+				routeComponent: <FeeRoute/>,
 			},
 			{
-				title: "Thêm khoản phí",
-				link: "/addfee",
+				title: "Phí đóng góp",
+				link: "/contributionfee",
 				security: SECURITY_LEVEL.ADMIN,
+				routeComponent: <ContributionRoute/>,
 			},
 		],
 	},

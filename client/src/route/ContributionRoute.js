@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Grid, Paper } from "@mui/material";
-import TableFeeRecurring from "./TableFeeRecurring";
-import { feeService } from "../../redux/service/feeService";
+import TableFeeContribution from "../component/FeeManager/TableFeeContribution";
+import { contributionService } from "../redux/service/contributionService";
 
-const FeeRecurring=() => {
+export default function FeeContribution() {
   const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState();
 
@@ -15,7 +15,7 @@ const FeeRecurring=() => {
   }, [isLoading]);
 
   const fetchData = async () => {
-    const fetch = await feeService.getAllFees();
+    const fetch = await contributionService.getALlContributions();
     setData(fetch);
   };
 
@@ -24,7 +24,7 @@ const FeeRecurring=() => {
       <Grid item xs={12}>
         <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
           {data ? (
-            <TableFeeRecurring
+            <TableFeeContribution
               data={data}
               handleLoading={() => {
                 setIsLoading(true);
@@ -35,5 +35,5 @@ const FeeRecurring=() => {
       </Grid>
     </Grid>
   );
+
 }
-export default FeeRecurring;
