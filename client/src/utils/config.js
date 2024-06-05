@@ -5,6 +5,8 @@ import PeopleIcon from "@mui/icons-material/People";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import LayersIcon from "@mui/icons-material/Layers";
 import { Dashboard } from "../route/Dashboard";
+import  FeeRoute from "../route/FeeRoute";
+import  ContributionRoute from "../route/ContributionRoute";
 import { ListUser } from "../route/ListUser";
 import { UserFeedback } from "../route/UserFeedback";
 import { UserInfo } from "../route/UserInfo";
@@ -29,117 +31,125 @@ export const SECURITY_LEVEL = {
 };
 
 export const ROUTE_LIST = [
-  // {
-  //   title: "Authenticate",
-  //   icon: null,
-  //   hiddenFromNavList: true,
-  //   security: SECURITY_LEVEL.GUEST,
-  //   nodes: [
-  //     {
-  //       title: "Đăng nhập",
-  //       link: "/signin",
-  //       routeComponent: <SignIn />,
-  //       security: SECURITY_LEVEL.GUEST,
-  //     },
-  //     {
-  //       title: "Đăng ký",
-  //       link: "/signup",
-  //       routeComponent: <SignUp />,
-  //       security: SECURITY_LEVEL.GUEST,
-  //     },
-  //   ],
-  // },
-  {
-    title: "Trang chủ",
-    icon: <DashboardIcon />,
-    security: SECURITY_LEVEL.USER,
-    nodes: [
-      {
-        title: "Về trang chủ",
-        link: "/",
-        routeComponent: <Dashboard />,
-        security: SECURITY_LEVEL.USER,
-      },
-    ],
-  },
-  {
-    title: "Quản lý cán bộ",
-    icon: <ShoppingCartIcon />,
-    security: SECURITY_LEVEL.ADMIN,
-    nodes: [
-      {
-        title: "Xem cán bộ",
-        link: "/listadmin",
-        security: SECURITY_LEVEL.ADMIN,
-      },
-      {
-        title: "Thêm cán bộ",
-        link: "/addadmin",
-        security: SECURITY_LEVEL.ADMIN,
-      },
-    ],
-  },
-  {
-    title: "Quản lý khoản phí",
-    icon: <BarChartIcon />,
-    security: SECURITY_LEVEL.USER,
-    nodes: [
-      {
-        title: "Xem khoản phí",
-        link: "/listfee",
-        security: SECURITY_LEVEL.USER,
-      },
-      {
-        title: "Thêm khoản phí",
-        link: "/addfee",
-        security: SECURITY_LEVEL.ADMIN,
-      },
-    ],
-  },
-  {
-    title: "Quản lý hộ khẩu",
-    icon: <LayersIcon />,
-    security: SECURITY_LEVEL.ADMIN,
-    nodes: [
-      {
-        routeComponent: <HouseholdList></HouseholdList>,
-        title: "Xem hộ khẩu",
-        link: "/listFamily",
-        security: SECURITY_LEVEL.ADMIN,
-      },
-      {
-        routeComponent: <HouseholdForm></HouseholdForm>,
-        title: "Thêm hộ khẩu",
-        link: "/addfamily",
-        security: SECURITY_LEVEL.ADMIN,
-      },
-    ],
-  },
-  {
-    title: "Tra cứu",
-    icon: <SearchIcon />,
-    security: SECURITY_LEVEL.USER,
-    nodes: [
-      { title: "Tra cứu", link: "/search", security: SECURITY_LEVEL.USER },
-    ],
-  },
-  {
-    title: "Quản lý thông tin",
-    icon: <PeopleIcon />,
-    security: SECURITY_LEVEL.ADMIN,
-    nodes: [
-      {
-        title: "Xem danh sách cá nhân",
-        link: "/user/info",
-        security: SECURITY_LEVEL.USER,
-        routeComponent: <UserInfo />,
-      },
-      {
-        title: "Điền khiếu nại",
-        link: "/user/feedback",
-        security: SECURITY_LEVEL.USER,
-        routeComponent: <UserFeedback />,
-      },
-    ],
-  },
+	{
+		title: "Authenticate",
+		icon: null,
+		hiddenFromNavList:true,
+		security: SECURITY_LEVEL.GUEST,
+		nodes: [
+			{
+				title: "Đăng nhập",
+				link: "/signin",
+				routeComponent: <SignIn />,
+				security: SECURITY_LEVEL.GUEST,
+			},
+			{
+				title: "Đăng ký",
+				link: "/signup",
+				routeComponent: <SignUp />,
+				security: SECURITY_LEVEL.GUEST,
+			},
+		],
+	},
+	{
+		title: "Trang chủ",
+		icon: <DashboardIcon />,
+		security: SECURITY_LEVEL.USER,
+		nodes: [
+			{
+				title: "Về trang chủ",
+				link: "/",
+				routeComponent: <Dashboard />,
+				security: SECURITY_LEVEL.USER,
+			},
+		],
+	},
+	{
+		title: "Quản lý cán bộ",
+		icon: <ShoppingCartIcon />,
+		security: SECURITY_LEVEL.ADMIN,
+		nodes: [
+			{
+				title: "Xem cán bộ",
+				link: "/listadmin",
+				security: SECURITY_LEVEL.ADMIN,
+			},
+			{
+				title: "Thêm cán bộ",
+				link: "/addadmin",
+				security: SECURITY_LEVEL.ADMIN,
+			},
+		],
+	},
+	{
+		title: "Quản lý khoản phí",
+		icon: <BarChartIcon />,
+		security: SECURITY_LEVEL.USER,
+		nodes: [
+			{
+				title: "Phí cố định",
+				link: "/recurringfee",
+				security: SECURITY_LEVEL.USER,
+				routeComponent: <FeeRoute/>,
+			},
+			{
+				title: "Phí đóng góp",
+				link: "/contributionfee",
+				security: SECURITY_LEVEL.ADMIN,
+				routeComponent: <ContributionRoute/>,
+			},
+		],
+	},
+	{
+		title: "Quản lý hộ khẩu",
+		icon: <LayersIcon />,
+		security: SECURITY_LEVEL.ADMIN,
+		nodes: [
+			{
+				routeComponent: <HouseholdList></HouseholdList>,
+				title: "Xem hộ khẩu",
+				link: "/listFamily",
+				security: SECURITY_LEVEL.ADMIN,
+			},
+			{
+				routeComponent: <HouseholdForm></HouseholdForm>,
+				title: "Thêm hộ khẩu",
+				link: "/addfamily",
+				security: SECURITY_LEVEL.ADMIN,
+			},
+		],
+	},
+	{
+		title: "Tra cứu",
+		icon: <SearchIcon />,
+		security: SECURITY_LEVEL.USER,
+		nodes: [
+			{ title: "Tra cứu", link: "/search", security: SECURITY_LEVEL.USER },
+		],
+	},
+	{
+		title: "Quản lý thông tin",
+		icon: <PeopleIcon />,
+		security: SECURITY_LEVEL.USER,
+		nodes: [
+			{
+				title: "Xem thông tin cá nhân",
+				link: "/user/info",
+				security: SECURITY_LEVEL.USER,
+				routeComponent: <UserInfo />,
+			},
+			{
+				title: "Điền khiếu nại",
+				link: "/user/feedback",
+				security: SECURITY_LEVEL.USER,
+				routeComponent: <UserFeedback />,
+			},
+			{
+				title: "Xem danh sách cá nhân",
+				link: "/listuser",
+				routeComponent: <ListUser />,
+				security: SECURITY_LEVEL.USER,
+			},
+		],
+	},
 ];
