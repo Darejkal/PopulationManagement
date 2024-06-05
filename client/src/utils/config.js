@@ -29,26 +29,26 @@ export const SECURITY_LEVEL = {
 };
 
 export const ROUTE_LIST = [
-  {
-    title: "Authenticate",
-    icon: null,
-    hiddenFromNavList: true,
-    security: SECURITY_LEVEL.GUEST,
-    nodes: [
-      {
-        title: "Đăng nhập",
-        link: "/signin",
-        routeComponent: <SignIn />,
-        security: SECURITY_LEVEL.GUEST,
-      },
-      {
-        title: "Đăng ký",
-        link: "/signup",
-        routeComponent: <SignUp />,
-        security: SECURITY_LEVEL.GUEST,
-      },
-    ],
-  },
+  // {
+  //   title: "Authenticate",
+  //   icon: null,
+  //   hiddenFromNavList: true,
+  //   security: SECURITY_LEVEL.GUEST,
+  //   nodes: [
+  //     {
+  //       title: "Đăng nhập",
+  //       link: "/signin",
+  //       routeComponent: <SignIn />,
+  //       security: SECURITY_LEVEL.GUEST,
+  //     },
+  //     {
+  //       title: "Đăng ký",
+  //       link: "/signup",
+  //       routeComponent: <SignUp />,
+  //       security: SECURITY_LEVEL.GUEST,
+  //     },
+  //   ],
+  // },
   {
     title: "Trang chủ",
     icon: <DashboardIcon />,
