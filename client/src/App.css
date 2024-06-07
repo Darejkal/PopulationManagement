@@ -1,0 +1,105 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+.accordion-button::after {
+  flex-shrink: 0;
+  width: var(--bs-accordion-btn-icon-width);
+  height: var(--bs-accordion-btn-icon-width);
+  margin-left: auto;
+  content: "";
+  background-image: var(--bs-accordion-btn-icon);
+  background-repeat: no-repeat;
+  background-size: 12px !important;
+  transition: var(--bs-accordion-btn-icon-transition);
+}
+
+ .css-cvumne-MuiDrawer-docked .MuiDrawer-paper {
+   position: relative;
+   white-space: nowrap;
+   width: 260px !important;
+   -webkit-transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+   transition: width 225ms cubic-bezier(0.4, 0, 0.6, 1) 0ms;
+   box-sizing: border-box;
+ }
+.accordion-body {
+  padding: 0 !important;
+}
+/*data grid */
+.css-levciy-MuiTablePagination-displayedRows {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.43;
+  letter-spacing: 0.01071em;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin-bottom: 0 !important;
+}
+
+.css-rtrcn9-MuiTablePagination-root .MuiTablePagination-selectLabel {
+   display: block;
+   margin: 0;
+ }
+.css-o9k5xi-MuiInputBase-root-MuiOutlinedInput-root {
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-weight: 400;
+  font-size: 0.8rem !important;
+  line-height: 1.4375em;
+  letter-spacing: 0.00938em;
+  color: rgba(0, 0, 0, 0.87);
+  box-sizing: border-box;
+  position: relative;
+  cursor: text;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  border-radius: 4px;
+  padding-right: 14px;
+}
+iframe
+{
+    display: none;
+}
+
