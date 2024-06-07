@@ -1,6 +1,6 @@
 import "./App.css";
 
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, RouteProps, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/DashBoard";
 // import {PrivateRoute} from "./route/PrivateRoute";
@@ -13,7 +13,7 @@ import CreateHousehold from "./pages/ManageHouseholdPage/CreateHousehold";
 import AddHouseholder from "./Components/AddHouseholder";
 import HouseholdList from "./pages/ManageHouseholdPage/HouseholdList";
 import PopulationList from "./Components/PopulationList";
-import { AdminWrap, PrivateRoute } from "./middleware/PrivateRoute";
+import { PrivateRoute, AdminRoute } from "./middleware/PrivateRoute";
 import FeeAndContributionList from "./pages/GetFeeAndContributionPages/feeAndContributionList";
 import CreateHouseholdFeeList from "./pages/GetFeeAndContributionPages/CreateHouseholdFeeList";
 import FeeHouseholdList from "./pages/GetFeeAndContributionPages/FeeHouseholdList";
@@ -24,17 +24,24 @@ import CreatedList from "./pages/GetFeeAndContributionPages/CreatedList";
 import CreateHouseholdContributionList from "./pages/GetFeeAndContributionPages/CreateHouseholdContributionList";
 import ContributionHouseholdList from "./pages/GetFeeAndContributionPages/ContributionHouseholdList";
 import ChangePassword from "./pages/ChangePassword";
-
+import 'react-toastify/dist/ReactToastify.css'; 
+import { ToastContainer } from "react-toastify";
+import HouseholdManage from "./routing/household/manage";
+import Layout from "./components/Layout";
+import LoginPage from "./routing/public/login";
+import CreateUserPage from "./routing/identity/create";
+import HouseholdExpandPage from "./routing/household/expand";
 function App() {
   return (
     <>
+    <ToastContainer style={{zIndex:2147483647}}/>
       <BrowserRouter>
         <Routes>
           <Route
             path="/"
             element={<PrivateRoute element={<Dashboard />} />}
           ></Route>
-          <Route path="/login" element={<SignIn />} />
+          <Route path="/login" element={<LoginPage />} />
           <Route
             path="/dashboard"
             element={<PrivateRoute element={<Dashboard />} />}
@@ -58,8 +65,20 @@ function App() {
           ></Route>
 
           <Route
-            path="/CreateHH"
-            element={<PrivateRoute element={<CreateHousehold />} />}
+            path="/household/manage"
+            element={
+              <PrivateRoute
+                element={<HouseholdManage />}
+              ></PrivateRoute>
+            }
+          ></Route>
+          <Route
+            path="/household/expand/:id"
+            element={
+              <PrivateRoute
+                element={<HouseholdExpandPage />}
+              ></PrivateRoute>
+            }
           ></Route>
           <Route
             path="/HouseholdList"
@@ -92,11 +111,15 @@ function App() {
           ></Route>
           <Route
             path="/GetUserMana"
-            element={<AdminWrap element={<UserManagement />} />}
+            element={<AdminRoute element={<UserManagement />} />}
           ></Route>
           <Route
             path="/AddUser"
-            element={<AdminWrap element={<UserAdd />} />}
+            element={<AdminRoute element={<UserAdd />} />}
+          ></Route>
+          <Route
+            path="/identity/create"
+            element={<AdminRoute element={<CreateUserPage />} />}
           ></Route>
           <Route
             path="/HouseholdFeeList/create"

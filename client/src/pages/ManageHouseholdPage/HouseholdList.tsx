@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Table } from "react-bootstrap";
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getHouseholds } from "../../redux/slices/householdSlice";
@@ -49,7 +49,7 @@ function HouseholdList() {
       </div>
   );
 
-  return <Layout content={content}></Layout>;
+  return content;
 }
 
 export default HouseholdList;

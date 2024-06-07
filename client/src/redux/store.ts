@@ -17,5 +17,7 @@ export  const store=configureStore({
         statistic: statisticReducer,
     }
 });
+export type IStoreType = ReturnType<typeof store.getState>
+
 
 

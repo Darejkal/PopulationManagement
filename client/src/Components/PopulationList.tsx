@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Layout from './NavigationBar';
+import Layout from '../components/Layout';
 import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
@@ -56,7 +56,7 @@ function PopulationList() {
       </div>
   );
 
-  return <Layout content={content}></Layout>;
+  return content;
 }
 
 export default PopulationList;

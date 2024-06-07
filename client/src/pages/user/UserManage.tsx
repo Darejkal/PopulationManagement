@@ -1,4 +1,4 @@
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
@@ -14,6 +14,7 @@ import Title from "../../Components/Title";
 import { canBoInfos } from "./UserAdd";
 import { Button, Card, CardContent, CardHeader } from "@mui/material";
 import { ButtonGroup } from "react-bootstrap";
+import { ThunkDispatch } from "@reduxjs/toolkit";
 
 const CanBoManagement = () => {
 	const [userToModify, setUserToModify] = React.useState(undefined);
@@ -48,7 +49,7 @@ const CanBoManagement = () => {
 			</Grid>
 		</Grid>
 	);
-	return <Layout content={content}></Layout>;
+	return content;
 };
 const CanBoList = ({ setUserToModify }) => {
 	const currentUser = useSelector((state) => state?.user?.user);

@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button } from "react-bootstrap";
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import { useNavigate } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addMember } from "../../redux/slices/populationSlice";
 import { ThunkDispatch } from "@reduxjs/toolkit";
@@ -111,7 +110,6 @@ function CreateHousehold() {
 
   const content = (
     <>
-      <ToastContainer /> {/* Hiển thị ToastContainer ở đây */}
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formHouseholdNumber">
           <Form.Label>Số hộ khẩu</Form.Label>
@@ -160,7 +158,7 @@ function CreateHousehold() {
       </Form>
     </>
   );
-  return <Layout content={content}></Layout>;
+  return content;
 }
 
 export default CreateHousehold;

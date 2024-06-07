@@ -6,6 +6,8 @@ export interface IUser{
     firstName:string,
     lastname:string,
     phoneNumber:string,
+    address?:string,
+    identifyCardId?:string,
     sex:string,
     role:string,
     position:"Admin"|"User"
@@ -44,6 +46,14 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
         role: {
             type: String,
             default: "user",
+        },
+        address: {
+            type: String,
+            // required: true,
+        },
+        identifyCardId: {
+            type: String,
+            // required: true,
         },
         position: {
             type: String,

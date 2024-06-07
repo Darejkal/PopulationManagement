@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import { Grid, Paper } from "@mui/material";
 import TableFeeRecurring from "./TableFeeRecurring";
 import { feeService } from "../../redux/services/feeService";
@@ -37,5 +37,5 @@ export default function FeeRecurring() {
     </Grid>
   );
 
-  return <Layout content={content}></Layout>;
+  return content;
 }

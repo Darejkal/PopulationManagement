@@ -8,7 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Checkbox from "@mui/material/Checkbox";
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {useParams} from "react-router-dom";
@@ -89,7 +89,7 @@ export default function FeeHouseholdList() {
     }
 
     // console.log(listState);
-    const content = (
+    return (
         <>
             <Navbar variant="dark" bg="primary" expand="lg">
                 <Container fluid>
@@ -160,7 +160,5 @@ export default function FeeHouseholdList() {
         </>
 
     );
-    return (
-        <Layout content={content}></Layout>
-    )
+
 }

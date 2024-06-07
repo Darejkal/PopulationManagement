@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import HouseholdModel from "../models/householdModel";
-import IndividualModel from "../models/individualModel";
 
 const getHouseholdBasedOnParams = asyncHandler(async (req: Request, res: Response) => {
     try {
@@ -60,7 +59,54 @@ const getHouseholds = asyncHandler(async (req: Request, res: Response) => {
         });
     }
 });
-
+export const getPaginated=asyncHandler(async (req:Request,res:Response)=>{
+    let {limit,next,query}=req.body;
+    if(!limit||limit>20){
+        limit=20
+    } else{
+        limit=Math.floor(limit);
+    }
+	let searchprops={}
+	if(next){
+		searchprops={...searchprops,
+			_id: { $lt: next } 
+		}
+	}
+	if(query){
+		searchprops={...searchprops,
+			$text:{
+				$search:query,
+				$diacriticSensitive:false
+			},
+			
+		}
+	} 
+	console.log(searchprops)
+	let results;
+	if(query){
+		let nextVal=Number(next);
+		if(!nextVal){
+			nextVal=0;
+		}
+		results=await HouseholdModel.find(searchprops)
+		.skip(nextVal)
+		.limit(limit);
+		res.status(200).send( {
+			results,
+			next: results.length == 0 ? undefined : `${nextVal+results.length}`,
+		})
+	} else{
+		results=await HouseholdModel.find(searchprops)
+		.sort({
+			_id: -1,
+		})
+		.limit(limit);
+        res.status(200).send({
+			results,
+			next: results.length == 0 ? undefined : results[results.length - 1]._id,
+		})
+	}
+})
 const getHouseholdDetail = asyncHandler(async (req: Request, res: Response) => {
     try {
         const { id } = req.params;

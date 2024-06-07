@@ -1,5 +1,5 @@
 
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
@@ -24,7 +24,7 @@ const FeeAndContributionList = () => {
         </Grid>
     )
     return (
-        <Layout content={content}></Layout>
+        content
     )
 }
 export default FeeAndContributionList;

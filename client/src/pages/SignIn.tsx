@@ -35,9 +35,13 @@ const defaultTheme = createTheme();
 
 export default function SignIn() {
     React.useEffect(()=>{
-        const isAuthenticated = JSON.parse(localStorage.getItem("user")??"");
-        if(isAuthenticated){
-            navigate("/dashboard")
+        try{
+            const isAuthenticated = JSON.parse(localStorage.getItem("user")??"");
+            if(isAuthenticated){
+                navigate("/dashboard")
+            }
+        } catch(e){
+            
         }
     })
     const dispatch=useDispatch<ThunkDispatch<any, any, any>>();

@@ -20,11 +20,11 @@ const authMiddleware = asyncHandler(async (request: AuthenticatedRequest, respon
       request.user = await User.findById(decodedToken?.id) as IUser|undefined;
       next();
     } catch(e:any) {
-       response.status(401).json("User is not found");
+       response.status(500).json("User is not found");
        return
     }
   } else {
-     response.status(404).json('You should authenticate');
+     response.status(500).json('You should authenticate');
      return
   }
 });

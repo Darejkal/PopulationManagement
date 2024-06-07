@@ -7,7 +7,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import {getHouseholdsBasedOnParams} from "../../redux/slices/householdSlice";
@@ -176,6 +176,6 @@ export default function CreateHouseholdFeeList() {
 
     );
     return (
-        <Layout content={content}></Layout>
+        content
     )
 }

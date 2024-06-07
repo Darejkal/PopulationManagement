@@ -13,7 +13,8 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {changePassword, loginUser} from "../redux/slices/userSlice";
-import Layout from "../Components/NavigationBar";
+import Layout from "../components/Layout";
+import { ThunkDispatch } from '@reduxjs/toolkit';
 
 function Copyright(props) {
     return (
@@ -128,6 +129,6 @@ export  default function ChangePassword(){
 
     );
     return(
-        <Layout content={content}></Layout>
+        content
     )
 }

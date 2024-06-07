@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import { Grid, Paper } from "@mui/material";
 import TableFeeContribution from "./TableFeeContribution";
 import { contributionService } from "../../redux/services/contributionService";
@@ -37,5 +37,5 @@ export default function FeeContribution() {
     </Grid>
   );
 
-  return <Layout content={content}></Layout>;
+  return content;
 }

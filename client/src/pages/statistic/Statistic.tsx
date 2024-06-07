@@ -1,4 +1,4 @@
-import Layout from '../../Components/NavigationBar';
+import Layout from '../../components/Layout';
 import { Grid, Card, CardContent, Typography, CardHeader } from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import Table from '@mui/material/Table';
@@ -86,7 +86,7 @@ const Statistic = () => {
 
     return (
         <>
-            <Layout content={content}> </Layout>
+            {content}
         </>
     );
 }

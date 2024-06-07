@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FolderIcon from '@mui/icons-material/Folder';
 import DeleteIcon from '@mui/icons-material/Delete';
-import Layout from "../../Components/NavigationBar";
+import Layout from "../../components/Layout";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect} from "react";
 import {deleteList, getCreatedList} from "../../redux/slices/listSlice";
@@ -142,6 +142,6 @@ export default function CreatedList() {
         </Box>
     );
     return (
-        <Layout content={content}></Layout>
+        content
     )
 }

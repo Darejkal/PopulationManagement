@@ -16,7 +16,7 @@ import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import MainListItems from '../Components/listItems';
 import UserDropdown from "../Components/UserDropdown";
 import { Button } from 'react-bootstrap';
-import Layout from '../Components/NavigationBar';
+import Layout from '../components/Layout';
 const drawerWidth = 240;
 
 const AppBar = styled(MuiAppBar, {
@@ -73,7 +73,6 @@ export default function Dashboard() {
     };
 
     return (
-        <Layout>
         <div>
         <img src={`${process.env.PUBLIC_URL}/landing_img.jpg`} style={{
             position:"absolute",
@@ -142,6 +141,5 @@ export default function Dashboard() {
                 </div>
             </div>
     </div>
-        </Layout>
     );
 }

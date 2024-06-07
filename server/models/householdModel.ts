@@ -23,7 +23,7 @@ const HouseholdSchema: Schema = new mongoose.Schema(
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "Individual",
+            ref: "User",
         },
         memberNumber: {
             type: Number,

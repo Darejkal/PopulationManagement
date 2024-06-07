@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Layout from './NavigationBar';
+import Layout from '../components/Layout';
 import { useState } from 'react';
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
@@ -18,8 +18,6 @@ export default function AddHouseholder() {
 
     const handleSubmit = (e:React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        
         navigate('/CreateHH');
         toast.success('Tạo hộ khẩu thành công');
     };
@@ -47,5 +45,5 @@ export default function AddHouseholder() {
         </>
     );
 
-    return <Layout content={content}></Layout>;
+    return content;
 }

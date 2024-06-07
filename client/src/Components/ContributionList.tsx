@@ -27,10 +27,6 @@ export default function ContributionList() {
         navigate('/HouseholdContributionList/create', {state: row});
     }
 
-    // console.log("ttsss");
-    // console.log(contributionState);
-
-
     return (
         <React.Fragment>
             <Title>Các khoản đóng góp:</Title>

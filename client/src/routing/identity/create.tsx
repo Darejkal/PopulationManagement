@@ -17,6 +17,7 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Button } from "react-bootstrap";
+import { CustomTextInput } from "../../components/CustomTextInput";
 const createInfo = (
 	name,
 	label,
@@ -41,7 +42,7 @@ export const canBoInfos = [
 	createInfo("sex", "Giới", ""),
 	createInfo("position", "Chức danh", "", "text", ["Admin", "User"]),
 ];
-const CanBoAdd = () => {
+const CreateUserPage = () => {
 	const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 	const navigate = useNavigate();
 	const handleSubmit = (event) => {
@@ -60,91 +61,87 @@ const CanBoAdd = () => {
 			.unwrap()
 			.then((data) => {
 				alert("User created");
-				navigate("/GetCANBOMana");
+				navigate(0);
 			})
 			.catch((error) => {
 				console.log("Create user error:", error);
 			});
 	};
 	const content = (
-		<Grid container spacing={3}>
-			{/* Chart */}
-			{/* Recent Orders */}
-			<Grid item xs={12}>
-				<Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-					<Box
-						sx={{
-							paddingTop: 5,
-							paddingBottom: 5,
-							paddingRight: 30,
-							paddingLeft: 30,
-							display: "flex",
-							flexDirection: "column",
-							alignItems: "center",
-						}}
-					>
-						<Typography component="h1" variant="h5">
-							Nhập thông tin người dùng mới
-						</Typography>
-						<Box component="form" onSubmit={handleSubmit} sx={{ mt: 1 }}>
-							{canBoInfos.map((info) => {
-								return info.vals.length ? (
-									<FormControl fullWidth>
-										<InputLabel id={info.label}>{info.label}</InputLabel>
-										<Select
-											defaultValue={info.default_val}
-											labelId={info.label}
-											required
-											fullWidth
-											id={info.name}
-											label={info.label}
-											name={info.name}
-											autoFocus
-										>
-											{info.vals.map((val) => (
-												<MenuItem value={val}>{val}</MenuItem>
-											))}
-										</Select>
-									</FormControl>
-								) : (
-									<TextField
-										defaultValue={info.default_val}
-										margin="normal"
-										required
-										fullWidth
-										id={info.name}
-										label={info.label}
-										name={info.name}
-										type={info.type}
-										// value={}
-										autoFocus
-									/>
-								);
-							})}
-							<div
-								style={{
-									display:"flex",
-									justifyContent: "center",
-									alignItems: "center",
-									width: "100%",
-									marginTop: "1rem",
-								}}
+		<div
+			style={{
+				padding: "1rem 10rem 0 10rem",
+				display: "flex",
+				flexDirection: "column",
+				justifyContent: "center",
+				alignItems: "center",
+			}}
+		>
+			<Typography component="h1" variant="h5">
+				Nhập thông tin người dùng mới
+			</Typography>
+			<Box
+				component="form"
+				onSubmit={handleSubmit}
+				sx={{
+					mt: 1,
+					width: "80%",
+					display: "flex",
+					flexDirection: "column",
+					justifyContent: "center",
+					alignItems: "center",
+				}}
+			>
+				{canBoInfos.map((info) => {
+					return info.vals.length ? (
+						<div style={{ width: "80%" }}>
+							<label id={info.label}>{info.label}</label>
+							<Select
+								defaultValue={info.default_val}
+								labelId={info.label}
+								required
+								id={info.name}
+								name={info.name}
+								autoFocus
+								sx={{ width: "100%", height: "2.5rem" }}
 							>
-								<Button type="submit" variant="outline-primary">
-									Submit
-								</Button>
-							</div>
-						</Box>
-					</Box>
-				</Paper>
-			</Grid>
-			{/* <Grid item xs={12}>
-                    <Paper sx={{p: 2, display: 'flex', flexDirection: 'column'}}>
-                        <ContributionList/>
-                    </Paper>
-                </Grid> */}
-		</Grid>
+								{info.vals.map((val) => (
+									<MenuItem value={val}>{val}</MenuItem>
+								))}
+							</Select>
+						</div>
+					) : (
+						<CustomTextInput
+							inputProps={{
+								defaultValue: info.default_val,
+								required: true,
+								id: info.name,
+								type: info.type,
+								style: {},
+							}}
+							style={{
+								width: "80%",
+							}}
+							label={info.label}
+						/>
+					);
+				})}
+				<div
+					style={{
+						display: "flex",
+						justifyContent: "center",
+						alignItems: "center",
+						width: "100%",
+						marginTop: "1rem",
+					}}
+				>
+					<Button type="submit" variant="outline-primary">
+						Submit
+					</Button>
+				</div>
+			</Box>
+		</div>
 	);
 	return content;
 };
-export default CanBoAdd;
+export default CreateUserPage;

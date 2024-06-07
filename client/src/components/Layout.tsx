@@ -1,31 +1,16 @@
 
 import * as React from 'react';
-import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import MuiDrawer from '@mui/material/Drawer';
-import Box from '@mui/material/Box';
-import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import Container from '@mui/material/Container';
-
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MainListItems from './listItems';
-import UserDropdown from "./UserDropdown";
-import { Nav, NavDropdown, Navbar } from 'react-bootstrap';
+import UserDropdown from "../Components/UserDropdown";
+import { Container, Nav, NavDropdown, Navbar } from 'react-bootstrap';
 import { AdminWrap } from '../middleware/PrivateRoute';
 import { useNavigate } from 'react-router-dom';
 
-export default function Layout({content,children}:{content?:React.JSX.Element,children?:React.JSX.Element}) {
+export default function Layout({content,children}:{content?:React.ReactNode,children?:React.ReactNode}) {
   const navigate = useNavigate();
 
     return(
-        <div>
-      <Navbar collapseOnSelect bg="dark" variant="dark" expand="lg" style={{position:"sticky",zIndex:1000}}>
+        <div style={{minHeight:"100%",display:"flex",justifyContent:"center",alignItems:"center"}}>
+      <Navbar collapseOnSelect bg="dark" variant="dark" expand="lg" style={{position:"absolute",width:"100%",top:0,zIndex:1000}}>
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
@@ -38,7 +23,7 @@ export default function Layout({content,children}:{content?:React.JSX.Element,ch
                     <NavDropdown.Item onClick={() => navigate("/GetuserMana")}>
                       Xem người dùng
                     </NavDropdown.Item>
-                    <NavDropdown.Item onClick={() => navigate("/Adduser")}>
+                    <NavDropdown.Item onClick={() => navigate("/identity/create")}>
                       Thêm người dùng
                     </NavDropdown.Item>
                   </NavDropdown>
@@ -66,12 +51,7 @@ export default function Layout({content,children}:{content?:React.JSX.Element,ch
                 element={
                   <NavDropdown title="Quản lý hộ khẩu" id="household-dropdown">
                     <NavDropdown.Item
-                      onClick={() => navigate("/HouseholdList")}
-                    >
-                      Xem danh sách hộ khẩu
-                    </NavDropdown.Item>
-                    <NavDropdown.Item
-                      onClick={() => navigate("/CreateHH")}
+                      onClick={() => navigate("/household/manage")}
                     >
                       Tạo hộ khẩu
                     </NavDropdown.Item>
@@ -97,7 +77,7 @@ export default function Layout({content,children}:{content?:React.JSX.Element,ch
           </Navbar.Collapse>
         </Container>
       </Navbar>
-        <div style={{padding:"5rem 10rem"}}>
+        <div style={{padding:"5rem 10rem 0 10rem",height:"100%",width:"100%",flex:1}}>
         {children??content}
         </div>
     </div>
