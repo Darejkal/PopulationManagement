@@ -4,10 +4,6 @@ import asyncHandler from "express-async-handler";
 import generateToken from "../config/jwtToken";
 import UserModel from "../models/userModel";
 
-const createUser = asyncHandler(async (req: Request, res: Response) => {
-  // Your implementation here
-});
-
 const login = asyncHandler(async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
@@ -16,7 +12,7 @@ const login = asyncHandler(async (req: Request, res: Response) => {
       res.status(200).send({
         message: "Login Successfully",
         currentUser: {
-          role: currentUser.role,
+          // role: currentUser.role,
           position: currentUser.position,
           _id: currentUser._id,
           email: currentUser.email,

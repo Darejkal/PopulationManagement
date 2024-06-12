@@ -11,7 +11,6 @@ import statisticRouter from "./routes/statisticRoute";
 
 const app: Express = express();
 const port: number = 5000;
-
 dbConnect();
 
 // Curb Cores Error by adding a header here
@@ -38,7 +37,7 @@ app.use("/api/list", listRouter);
 app.use("/api/fees", feeRouter);
 app.use("/api/contributions", contributionRouter);
 app.use("/api/households", householdRouter);
-app.use("/api/canbo", canBoRouter);
+app.use("/api/user", canBoRouter);
 app.use("/api/statistics", statisticRouter);
 
 app.listen(port, () => {

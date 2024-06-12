@@ -5,7 +5,6 @@ export interface IHousehold  {
     area: string;
     address: string;
     owner?: ObjectId;
-    memberNumber?: number;
 }
 
 const HouseholdSchema: Schema = new mongoose.Schema(
@@ -20,15 +19,19 @@ const HouseholdSchema: Schema = new mongoose.Schema(
         address: {
             type: String,
             required: true,
+            unique: true,
+            validate: {
+                validator: function(v:string) {
+                    var re = /^(K|U|H|P)\w{4}$/;
+                    return (!v || !v.trim().length) || re.test(v)
+                },
+                message: 'Số nhà cung cấp là chưa chính xác.'
+            }
         },
         owner: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "User",
-        },
-        memberNumber: {
-            type: Number,
-            default: 0,
-        },
+        }
     },
     {
         timestamps: true,

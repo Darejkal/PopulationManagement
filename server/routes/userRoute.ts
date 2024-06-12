@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { authMiddleware, isAdmin } from "../middlewares/authMiddleware";
-import { getUser, listUser, createUser, deleteUser } from "../controllers/UserControllers";
+import { getUser, listUser, createUser, deleteUser,updateUserByEmail } from "../controllers/UserControllers";
 
 const router: Router = express.Router();
 
@@ -12,6 +12,7 @@ router.get("/list", authMiddleware, listUser);
 router.post("/get", authMiddleware, isAdmin, getUser);
 router.post("/create", authMiddleware, isAdmin, createUser);
 router.post("/delete", authMiddleware, isAdmin, deleteUser);
+router.post("/update", authMiddleware, isAdmin, updateUserByEmail);
 
 router.get("/check", authMiddleware, isAdmin, (req, res, next) => {
     res.status(200).send("");

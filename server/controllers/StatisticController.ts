@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
-import FeeHouseholdRelModel from "../models/feeHouseholdRelModel";
+import FeeHouseholdRelationModel from "../models/feeHouseholdRelationModel";
 import FeeModel, { IFee } from "../models/feeModel";
 import ContributionModel, { IContribution } from "../models/contributionModel";
-import ContributionHouseholdModel from "../models/contriHouseholdRelModel";
+import ContributionHouseholdRelationModel from "../models/contriHouseholdRelationModel";
 import HouseholdModel, { IHousehold } from "../models/householdModel";
 import mongoose, { ObjectId } from "mongoose";
 
 const getFee = asyncHandler(async (req: Request, res: Response) => {
     try {
-        const feeHouseholdRelSchema = await FeeHouseholdRelModel.find();
+        const feeHouseholdRelSchema = await FeeHouseholdRelationModel.find();
         if (feeHouseholdRelSchema) {
             res.status(200).send(feeHouseholdRelSchema);
         } else {
@@ -22,8 +22,8 @@ const getFee = asyncHandler(async (req: Request, res: Response) => {
 
 const getInformation = asyncHandler(async (req: Request, res: Response) => {
     try {
-        const feeHouseholdRelSchema = await FeeHouseholdRelModel.find();
-        const contributionHouseholdRelSchema = await ContributionHouseholdModel.find();
+        const feeHouseholdRelSchema = await FeeHouseholdRelationModel.find();
+        const contributionHouseholdRelSchema = await ContributionHouseholdRelationModel.find();
         let feeSum = 0;
         let contributionSum = 0;
         const householdSet = new Set<string>();
@@ -52,12 +52,12 @@ const getInformation = asyncHandler(async (req: Request, res: Response) => {
         for (const householdId of householdSet) {
             const household = await HouseholdModel.findById(householdId);
             if (household) {
-                const feeList = await FeeHouseholdRelModel.find({ household: householdId });
+                const feeList = await FeeHouseholdRelationModel.find({ household: householdId });
                 const newFeeList = await Promise.all(feeList.map(async (feeRel) => {
                     const fee = await FeeModel.findById(feeRel.fee);
                     return fee ? fee.toObject() : null;
                 }));
-                const contributionList = await ContributionHouseholdModel.find({ household: householdId });
+                const contributionList = await ContributionHouseholdRelationModel.find({ household: householdId });
                 const newContributionList = await Promise.all(contributionList.map(async (contributionRel) => {
                     const contribution = await ContributionModel.findById(contributionRel.contribution);
                     return contribution ? contribution.toObject() : null;
@@ -67,7 +67,6 @@ const getInformation = asyncHandler(async (req: Request, res: Response) => {
                     owner: household.owner,
                     address: household.address,
                     area: household.area,
-                    memberNumber: household.memberNumber,
                     name: household.name,
                     feeList: (newFeeList.filter((fee) => fee !== null) as unknown as (IFee & { _id: ObjectId; })[] ),
                     contributionList: (newContributionList.filter((contribution) => contribution !== null) as unknown as  ((IContribution & {_id: ObjectId}))[])

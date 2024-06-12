@@ -2,8 +2,8 @@ import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import FeeModel from "../models/feeModel";
 import ContributionModel from "../models/contributionModel";
-import FeeHouseholdRelModel from "../models/feeHouseholdRelModel";
-import ContriHouseholdRelModel, { IContributionHouseholdRel } from "../models/contriHouseholdRelModel";
+import FeeHouseholdRelModel from "../models/feeHouseholdRelationModel";
+import ContriHouseholdRelModel, { IContributionHouseholdRel } from "../models/contriHouseholdRelationModel";
 import RelListModel from "../models/relListModel";
 import HouseholdModel from "../models/householdModel";
 import mongoose from "mongoose";
@@ -55,7 +55,7 @@ const createFACList = asyncHandler(async (req: Request, res: Response) => {
                 fee: fee?._id,
                 household: household._id,
                 relList: newRelList[0]._id,
-                amount: ((fee&&household&&household.memberNumber)?fee.amount * household.memberNumber:0),
+                // amount: ((fee&&household&&household.memberNumber)?fee.amount * household.memberNumber:0),
             }], { session });
             households.push(newFeeHouseholdRel);
         }

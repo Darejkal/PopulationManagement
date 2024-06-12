@@ -3,14 +3,14 @@ import bcrypt from "bcrypt";
 export interface IUser{
     email:string,
     password:string,
-    firstName:string,
+    firstname:string,
     lastname:string,
     phoneNumber:string,
-    address?:string,
-    identifyCardId?:string,
-    sex:string,
-    role:string,
-    position:"Admin"|"User"
+    CCCD?:string,
+    sex?:string,
+    position:"Admin"|"User",
+    household?:string
+    status?:string
 }
 export interface IUserDocument extends mongoose.Document,IUser{
     isPasswordMatched: (password:string)=>Promise<any>;
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
             type: String,
             required: true,
         },
-        firstName: {
+        firstname: {
             type: String,
             required: true,
         },
@@ -41,19 +41,16 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
         },
         sex: {
             type: String,
-            required: true
         },
-        role: {
+        CCCD: {
             type: String,
-            default: "user",
         },
-        address: {
-            type: String,
-            // required: true,
+        household: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Household",
         },
-        identifyCardId: {
-            type: String,
-            // required: true,
+        status:{
+            type: String
         },
         position: {
             type: String,
@@ -88,6 +85,9 @@ UserSchema.pre('save', function(next) {
         });
     });
 });
+let userModel=mongoose.models.User
+if(!userModel){
+    userModel= mongoose.model<IUserDocument>("User",UserSchema)
+}
 
-
-export default (mongoose.models.User|| mongoose.model<IUserDocument>("User",UserSchema)) as mongoose.Model<IUserDocument>
+export default (userModel as mongoose.Model<IUserDocument>)

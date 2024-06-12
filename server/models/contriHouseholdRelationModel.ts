@@ -4,12 +4,12 @@ export interface IContributionHouseholdRel  {
     household: ObjectId;
     contribution: ObjectId;
     paymentTime?: Date;
-    amount?: number;
+    amount: number;
     status?: boolean;
     relList?: ObjectId;
 }
 
-const ContributionHouseholdRelSchema: Schema = new mongoose.Schema(
+const ContributionHouseholdRelSchema: mongoose.Schema<IContributionHouseholdRel> = new mongoose.Schema(
     {
         household: {
             type: mongoose.Schema.Types.ObjectId,
@@ -26,6 +26,7 @@ const ContributionHouseholdRelSchema: Schema = new mongoose.Schema(
         },
         amount: {
             type: Number,
+            required:true
         },
         status: {
             type: Boolean,

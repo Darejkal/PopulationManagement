@@ -1,16 +1,16 @@
 // import mongoose, { Schema, Document, ObjectId } from "mongoose";
 
 // export interface IIndividual  {
-//     firstName: string;
+//     firstname: string;
 //     lastName: string;
 //     address: string;
-//     identifyCardId: string;
+//     CCCD: string;
 //     household?: ObjectId;
 // }
 
 // const IndividualSchema: Schema = new mongoose.Schema(
 //     {
-//         firstName: {
+//         firstname: {
 //             type: String,
 //             required: true,
 //         },
@@ -22,7 +22,7 @@
 //             type: String,
 //             required: true,
 //         },
-//         identifyCardId: {
+//         CCCD: {
 //             type: String,
 //             required: true,
 //         },
