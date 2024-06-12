@@ -28,7 +28,7 @@ const logout = async () => {
         throw new Error(error.message);
     }
 }
-const changePassword=async (userData:{email:string,firstName:string,lastname:string,phoneNumber:string,sex:string,role:string,position:string})=>{
+const changePassword=async (userData:{email:string,firstname:string,lastname:string,phoneNumber:string,sex:string,position:string})=>{
     try{
         const response = await axios.post(`${base_url}auth/changePassword`,userData,config());
     }

@@ -32,7 +32,7 @@ export function PaginatedTable<TData extends MRT_RowData>(
 			const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
 			if (scrollHeight - scrollTop - clientHeight < 400 && !isFetching) {
 				setIsFetching(true)
-				getPaginated({limit:20,...(globalFilter&&{query:globalFilter}),...(next&&{next:pagination.next})}).then(
+				getPaginated({limit:20,...(globalFilter&&{query:globalFilter}),...(pagination.next&&{next:pagination.next})}).then(
 					()=>{
 						setIsFetching(false)
 					}

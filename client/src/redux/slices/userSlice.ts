@@ -2,7 +2,7 @@
 import {createAsyncThunk, createSlice} from "@reduxjs/toolkit";
 import {userService} from "../services/userService";
 
-type IUserData={email:string,firstName:string,password:string,lastname:string,phoneNumber:string,sex:string,role:string,position:string}
+type IUserData={email:string,firstname:string,password:string,lastname:string,phoneNumber:string,sex:string,position:string}
 export const loginUser = createAsyncThunk(
     'auth/login',
     async (userData:{email:string,password:string}, thunkAPI) => {

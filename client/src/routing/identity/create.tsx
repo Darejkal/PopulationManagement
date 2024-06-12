@@ -18,30 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { ThunkDispatch } from "@reduxjs/toolkit";
 import { Button } from "react-bootstrap";
 import { CustomTextInput } from "../../components/CustomTextInput";
-const createInfo = (
-	name,
-	label,
-	default_val = undefined,
-	type = "text",
-	vals = []
-) => {
-	return {
-		name: name,
-		label: label,
-		type: type,
-		vals: vals,
-		default_val: default_val,
-	};
-};
-export const canBoInfos = [
-	createInfo("email", "Email", "", "email"),
-	createInfo("password", "Mật khẩu", "", "password"),
-	createInfo("firstName", "Tên", ""),
-	createInfo("lastname", "Họ", ""),
-	createInfo("phoneNumber", "SĐT", ""),
-	createInfo("sex", "Giới", ""),
-	createInfo("position", "Chức danh", "", "text", ["Admin", "User"]),
-];
+import { userInfos } from "../../utils/info";
 const CreateUserPage = () => {
 	const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
 	const navigate = useNavigate();
@@ -52,7 +29,8 @@ const CreateUserPage = () => {
 		//   email: data.get('email'),
 		//   password: data.get('password'),
 		// });
-		let newUser = canBoInfos.reduce((acc, info) => {
+		console.log(data)
+		let newUser = userInfos.reduce((acc, info) => {
 			acc[info.name] = data.get(info.name);
 			return acc;
 		}, {});
@@ -92,9 +70,9 @@ const CreateUserPage = () => {
 					alignItems: "center",
 				}}
 			>
-				{canBoInfos.map((info) => {
+				{userInfos.map((info) => {
 					return info.vals.length ? (
-						<div style={{ width: "80%" }}>
+						<div style={{ width: "80%" }} key={info.name}>
 							<label id={info.label}>{info.label}</label>
 							<Select
 								defaultValue={info.default_val}
@@ -116,9 +94,11 @@ const CreateUserPage = () => {
 								defaultValue: info.default_val,
 								required: true,
 								id: info.name,
+								name:info.name,
 								type: info.type,
 								style: {},
 							}}
+							key={info.name}
 							style={{
 								width: "80%",
 							}}

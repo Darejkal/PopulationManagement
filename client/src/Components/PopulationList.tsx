@@ -33,7 +33,7 @@ function PopulationList() {
           </tr>
           <tr>
             <td>Chủ hộ</td>
-            <td>{household?.owner?.firstName + ' ' + household?.owner?.lastName}</td>
+            <td>{household?.owner?.firstname + ' ' + household?.owner?.lastName}</td>
           </tr>
           <tr>
             <td>Địa chỉ</td>

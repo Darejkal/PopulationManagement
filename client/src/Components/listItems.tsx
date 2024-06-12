@@ -26,17 +26,17 @@ export default function MainListItems() {
                 </ListItemIcon>
                 <ListItemText
                   primary={
-                    <span style={{ fontSize: "15px" }}>Quản lý cán bộ</span>
+                    <span style={{ fontSize: "15px" }}>Quản lý người dùng</span>
                   }
                 />
               </Accordion.Header>
               <Accordion.Body>
                 <ListGroup>
                   <ListGroup.Item onClick={() => navigate("/GetCANBOMana")}>
-                    Xem cán bộ
+                    Xem người dùng
                   </ListGroup.Item>
                   <ListGroup.Item onClick={() => navigate("/AddCANBO")}>
-                    Thêm cán bộ
+                    Thêm người dùng
                   </ListGroup.Item>
                 </ListGroup>
               </Accordion.Body>

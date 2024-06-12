@@ -12,8 +12,8 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {changePassword, loginUser} from "../redux/slices/userSlice";
-import Layout from "../components/Layout";
+import {changePassword, loginUser} from "../../redux/slices/userSlice";
+import Layout from "../../components/Layout";
 import { ThunkDispatch } from '@reduxjs/toolkit';
 
 function Copyright(props) {

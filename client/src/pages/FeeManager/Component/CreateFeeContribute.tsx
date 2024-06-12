@@ -48,19 +48,6 @@ export default function CreateFeeContribute(props:{
                 }}
               />
             </Form.Group>
-            {/*<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">*/}
-            {/*  <Form.Label>Số tiền</Form.Label>*/}
-            {/*  <Form.Control*/}
-            {/*    type="number"*/}
-            {/*    value={dataCreate.amount}*/}
-            {/*    onChange={(e) => {*/}
-            {/*      setDataCreate({*/}
-            {/*        ...dataCreate,*/}
-            {/*        amount: Number(e.target.value),*/}
-            {/*      });*/}
-            {/*    }}*/}
-            {/*  />*/}
-            {/*</Form.Group>*/}
             <Form.Group
               className="mb-3 d-flex justify-content-between"
               controlId="exampleForm.ControlInput1"

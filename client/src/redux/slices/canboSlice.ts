@@ -3,7 +3,7 @@ import canboService from "../services/canboService";
 
 
 export const listUser = createAsyncThunk(
-    'canbo/list',
+    'user/list',
     async (x,thunkAPI) => {
         try {
             return await canboService.listUser();
@@ -13,8 +13,19 @@ export const listUser = createAsyncThunk(
 
     }
 )
+export const updateUserByEmail = createAsyncThunk(
+    'user/update',
+    async (props:{userData:IUser,oldemail:string},thunkAPI) => {
+        try {
+            return await canboService.updateUserByEmail(props);
+        } catch(error:any) {
+            return thunkAPI.rejectWithValue(error);
+        }
+
+    }
+)
 export const getUserByEmail = createAsyncThunk(
-    'canbo/get',
+    'user/get',
     async (email:string,thunkAPI) => {
         try {
             return await canboService.getUserByEmail(email);
@@ -25,8 +36,8 @@ export const getUserByEmail = createAsyncThunk(
     }
 )
 export const createUser = createAsyncThunk(
-    'canbo/create',
-    async (userData:{email:string,firstName:string,password:string,lastname:string,phoneNumber:string,sex:string,role:string,position:string},thunkAPI) => {
+    'user/create',
+    async (userData:{email:string,firstname:string,password:string,lastname:string,phoneNumber:string,sex:string,position:string},thunkAPI) => {
         try {
             return await canboService.createUser(userData);
         } catch(error:any) {
@@ -36,7 +47,7 @@ export const createUser = createAsyncThunk(
     }
 )
 export const deleteUserByEmail = createAsyncThunk(
-    'canbo/delete',
+    'user/delete',
     async (email:string,thunkAPI) => {
         try {
             return await canboService.deleteUserByEmail(email);
@@ -47,7 +58,7 @@ export const deleteUserByEmail = createAsyncThunk(
     }
 )
 export const isAdmin = createAsyncThunk(
-    'canbo/delete',
+    'user/delete',
     async (x,thunkAPI) => {
         try {
             return await canboService.isAdmin();
