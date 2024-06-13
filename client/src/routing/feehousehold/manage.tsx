@@ -13,16 +13,29 @@ import { toast } from "react-toastify";
 import { MaterialReactTable } from "material-react-table";
 import { userInfos } from "../../utils/info";
 import { BASE_URL } from "../../utils/config";
+import { useTimeField } from "@mui/x-date-pickers/TimeField/useTimeField";
 
 
 export default function HouseholdFeeManagePage(){
     const {id}=useParams()
     const household = useSelector((state) => state?.household?.householdDetail);
     const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-
+    const [feeRels,setFeeRels]=useState([])
+    const fetch = useFetch();
+    const getFeeRelOfHousehold=(id)=>{
+        fetch.get(BASE_URL+"/fees/getFeeRelOfHousehold/"+id).then((v)=>{
+        console.log(v);
+        setFeeRels(v.feeRels)
+          toast.success("Lấy thông tin phí thành công")
+        }).catch((e)=>{
+          toast.warning("Lấy thông tin phí thất bại!")
+    
+        })
+      }
     // get first time data
     useEffect(() => {
         getFeeHouseholdList(id);
+        getFeeRelOfHousehold(id);
     }, [dispatch, id]);
 
     const getFeeHouseholdList = (id) => {
@@ -50,15 +63,17 @@ export default function HouseholdFeeManagePage(){
             </Table>
         );
     };
-    
+
     return <>
         <h2>Thông tin hộ khẩu</h2>
         <div style={{ marginTop: "1rem", width: "30rem" }}>
           {renderHouseholdDetails(household)}
         </div>
         <div style={{marginTop:"1rem"}}></div>
+
+        <h3>Thông tin các khoản phí bắt buộc</h3>
         <MaterialReactTable
-            data = {[]}
+            data = {feeRels}
             columns={[
                 {
                     accessorKey:"household",
@@ -70,7 +85,7 @@ export default function HouseholdFeeManagePage(){
                 },
                 {
                     accessorKey: "paymentTime",
-                    header: "Thời gian nộp phí"
+                    header: "Thời gian nộp phí",
                 },
                 {
                     accessorKey: "amount",
@@ -78,7 +93,36 @@ export default function HouseholdFeeManagePage(){
                 },
                 {
                     accessorKey: "status",
-                    header: "Tình trạng"
+                    header: "Tình trạng",
+                    Cell:({cell})=>(<>{cell.getValue()?"Đã đóng":"Chưa đóng"}</>)
+                }
+            ]}
+        />
+
+        <h3>Thông tin các khoản đóng góp</h3>
+        <MaterialReactTable
+            data = {feeRels}
+            columns={[
+                {
+                    accessorKey:"household",
+                    header: "Số hộ khẩu"
+                },
+                {
+                    accessorKey: "name",
+                    header: "Tên phí",
+                },
+                {
+                    accessorKey: "paymentTime",
+                    header: "Thời gian nộp phí",
+                },
+                {
+                    accessorKey: "amount",
+                    header: "Số tiền"
+                },
+                {
+                    accessorKey: "status",
+                    header: "Tình trạng",
+                    Cell:({cell})=>(<>{cell.getValue()?"Đã đóng":"Chưa đóng"}</>)
                 }
             ]}
         />
