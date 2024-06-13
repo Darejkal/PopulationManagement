@@ -66,7 +66,7 @@ const getHouseholds = asyncHandler(async (req: Request, res: Response) => {
 		const households = await HouseholdModel.find().populate("owner");
 		res.status(200).send({
 			households: households.map((props) => {
-				let { owner, ...other } = props;
+				let { owner, ...other } = props.toObject();
 				return {
 					// @ts-ignore
 					owner: owner.email,

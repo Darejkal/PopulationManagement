@@ -23,7 +23,8 @@
         "express-async-handler": "^1.2.0",
         "jsonwebtoken": "^9.0.2",
         "mongoose": "^8.0.2",
-        "ts-node": "^10.9.2"
+        "ts-node": "^10.9.2",
+        "typescript": "^5.4.5"
     },
     "devDependencies": {
         "nodemon": "^3.0.2"
