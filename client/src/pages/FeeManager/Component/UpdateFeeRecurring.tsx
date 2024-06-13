@@ -5,7 +5,6 @@ import { feeService } from "../../../redux/services/feeService";
 export default function UpdateFeeRecurring(props: {
 	data: IFee[];
 	handleLoading: () => any;
-	handleShow: () => void;
 	handleClose: () => any;
 	show: boolean;
 	id: string;
@@ -74,7 +73,6 @@ export default function UpdateFeeRecurring(props: {
 									});
 								}}
 							>
-								<option>Kiểu nhà</option>
 								<option value="Penhouse">Hộ cao cấp</option>
 								<option value="House">Nhà dân</option>
 								<option value="Kiot">Kiot</option>
@@ -91,7 +89,6 @@ export default function UpdateFeeRecurring(props: {
 									});
 								}}
 							>
-								<option>Loại</option>
 								<option value="Household">Hộ khẩu</option>
 								<option value="Individual">Cá nhân</option>
 							</Form.Select>

@@ -27,6 +27,10 @@ const ContributionSchema: Schema = new mongoose.Schema(
     endTime: {
       type: Date,
     },
+    required:{
+      type:Boolean,
+      default:false,
+    }
   },
   {
     timestamps: true,

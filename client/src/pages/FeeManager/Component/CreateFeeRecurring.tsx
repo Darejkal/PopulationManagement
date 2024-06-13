@@ -86,7 +86,6 @@ export default function CreateFeeRecurring(props: {
 									});
 								}}
 							>
-								<option>Loại</option>
 								<option value="Household">Hộ khẩu</option>
 								<option value="Individual">Cá nhân</option>
 							</Form.Select>
@@ -100,12 +99,11 @@ export default function CreateFeeRecurring(props: {
 									});
 								}}
 							>
-								<option>Kiểu nhà</option>
-								<option value="Penhouse">Hộ cao cấp</option>
+								<option value="All">Tất cả</option>
 								<option value="House">Nhà dân</option>
 								<option value="Kiot">Kiot</option>
 								<option value="Underground">Tầng đế</option>
-								<option value="All">Tất cả</option>
+								<option value="Penhouse">Hộ cao cấp</option>
 							</Form.Select>
 							<Form.Select
 								value={dataCreate.frequency}

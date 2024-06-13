@@ -4,10 +4,11 @@ import { Button, Modal } from "react-bootstrap";
 export default function ModalConfirm(props:{
   show:boolean,
   handleClose:()=>void,
-  handleShow:()=>void,
   title:string,
   description:string,
-  handleAction:MouseEventHandler<HTMLButtonElement>
+  handleAction:MouseEventHandler<HTMLButtonElement>,
+  confirmLabel:string,
+  dismissLabel:string,
 }) {
   return (
     <div>
@@ -22,10 +23,11 @@ export default function ModalConfirm(props:{
         <Modal.Body>{props.description}</Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={props.handleClose}>
-            Thoát
+            {props.dismissLabel}
           </Button>
           <Button variant="primary" onClick={props.handleAction}>
-            Xóa
+          {props.confirmLabel}
+            
           </Button>
         </Modal.Footer>
       </Modal>

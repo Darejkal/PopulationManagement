@@ -10,7 +10,8 @@ export interface IUser{
     sex?:string,
     position:"Admin"|"User",
     household?:string
-    status?:string
+    status?:string,
+    hokhau?:string
 }
 export interface IUserDocument extends mongoose.Document,IUser{
     isPasswordMatched: (password:string)=>Promise<any>;
@@ -50,12 +51,16 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
             ref: "Household",
         },
         status:{
-            type: String
+            type: String,
+            enum:["Cư dân","Tạm trú","Tạm vắng","Người Dùng"]
         },
         position: {
             type: String,
             enum:["Admin","User"],
             default:"User"
+        },
+        hokhau: {
+            type: String,
         }
     },
     {

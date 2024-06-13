@@ -98,7 +98,7 @@ export default function Layout({
 							>
 								<NavDropdown.Item onClick={()=>{
 									localStorage.clear();
-									navigate("/")
+									navigate("/login")
 								}}>Đăng xuất</NavDropdown.Item>
 								<NavDropdown.Item href="/identity/changepass">
 									Đổi mật khẩu

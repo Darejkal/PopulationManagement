@@ -131,10 +131,11 @@ export default function TableFeeContribution(props:{
         <ModalConfirm
           show={modalDelete}
           handleClose={handleClose}
-          handleShow={handleShowDelete}
           title="Xóa thông tin khoản đóng góp"
           description="Bạn có chắc chắn xóa khoản đóng góp này?"
           handleAction={handleActionDelete}
+          confirmLabel="Xóa"
+          dismissLabel="Hủy"
         />
       )}
     </div>

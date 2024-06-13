@@ -22,6 +22,7 @@ export const userInfos = [
 	createInfo("sex", "Giới", ""),
 	createInfo("household", "Số phòng", ""),
 	createInfo("CCCD", "CCCD", ""),
-	createInfo("status", "Tình trạng", "","text",["Cư dân","Tạm trú","Tạm vắng","người dùng"]),
+	createInfo("hokhau", "Hộ Khẩu", ""),
+	createInfo("status", "Tình trạng", "","text",["Cư dân","Tạm trú","Tạm vắng","Người Dùng"]),
 	createInfo("position", "Chức danh", "", "text", ["Admin", "User"]),
 ];

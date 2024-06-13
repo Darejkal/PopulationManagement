@@ -7,6 +7,9 @@ export interface IFeeHouseholdRel  {
     amount: number;
     status?: boolean;
     relList?: ObjectId;
+    name: string;
+    startTime:Date,
+    lateTime:Date
 }
 
 const FeeHouseholdRelSchema: Schema<IFeeHouseholdRel> = new mongoose.Schema(
@@ -16,10 +19,22 @@ const FeeHouseholdRelSchema: Schema<IFeeHouseholdRel> = new mongoose.Schema(
             ref: "Household",
             required: true
         },
+        name: {
+            type: String,
+            required: true
+        },
         fee: {
             type: mongoose.Schema.Types.ObjectId,
             ref: "Fee",
             required: true
+        },
+        startTime:{
+            type: Date,
+            required:true,
+        },
+        lateTime:{
+            type: Date,
+            required:true,
         },
         paymentTime: {
             type: Date,

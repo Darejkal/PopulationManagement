@@ -1,4 +1,5 @@
 import mongoose, { ObjectId, Schema, Document } from "mongoose";
+import { IFee } from "./feeModel";
 
 export interface IHousehold  {
     name?: string;
@@ -6,8 +7,10 @@ export interface IHousehold  {
     address: string;
     owner?: ObjectId;
 }
-
-const HouseholdSchema: Schema = new mongoose.Schema(
+export interface IHouseholdDocument extends mongoose.Document,IHousehold{
+    getHouseholdType:(address:string)=>IFee["houseType"]
+}
+const HouseholdSchema: Schema<IHouseholdDocument> = new mongoose.Schema(
     {
         name: {
             type: String,
@@ -37,7 +40,20 @@ const HouseholdSchema: Schema = new mongoose.Schema(
         timestamps: true,
     }
 );
-
-const Household:mongoose.Model<IHousehold> = mongoose.models.Household || mongoose.model<IHousehold>("Household", HouseholdSchema);
+HouseholdSchema.methods.getHouseholdType= (address:string):IFee["houseType"]=>{
+    switch (address[0]) {
+        case "K":
+            return "Kiot"
+        case "U":
+            return "Underground"
+        case "H":
+            return "House"
+        case "P":
+            return "Penhouse"
+        default:
+            throw "houseType not specified";
+    }
+}
+const Household:mongoose.Model<IHouseholdDocument> = mongoose.models.Household || mongoose.model<IHouseholdDocument>("Household", HouseholdSchema);
 
 export default Household;
