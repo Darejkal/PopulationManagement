@@ -62,7 +62,7 @@ export default function CreateFeeRecurring(props: {
 						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 							<Form.Label>Số tiền</Form.Label>
 							<Form.Control
-								type="number"
+								type="integer"
 								value={dataCreate.amount}
 								onChange={(e) => {
 									setDataCreate({

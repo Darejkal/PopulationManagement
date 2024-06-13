@@ -30,6 +30,7 @@ import HouseholdExpandPage from "./routing/household/expand";
 import UserManagement from "./routing/identity/get";
 import ChangePassword from "./routing/identity/change";
 import FeeAndContributionList from "./routing/statistics/fee";
+import  HouseholdFeeManagePage  from "./routing/feehousehold/manage";
 function App() {
   return (
     <>
@@ -93,6 +94,10 @@ function App() {
           <Route
             path="/fee-contribution"
             element={<PrivateRoute element={<FeeContribution />} />}
+          ></Route>
+          <Route
+            path="/feehousehold/expand/:id"
+            element={<PrivateRoute element={<HouseholdFeeManagePage />} />}
           ></Route>
           <Route
             path="/fee-recurring"
