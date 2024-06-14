@@ -6,8 +6,8 @@ import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Modal } from "react-bootstrap";
-import { Box, TextField,Button as MaterialButton } from "@mui/material";
-import { FileDownload } from "@mui/icons-material";
+import { Box, TextField,Button as MaterialButton, IconButton } from "@mui/material";
+import { Delete, FileDownload } from "@mui/icons-material";
 import { MRT_Row } from "material-react-table";
 import { download, generateCsv } from "export-to-csv";
 export default function HouseholdManage() {
@@ -45,6 +45,7 @@ export default function HouseholdManage() {
 		>
 			<h3>Quản lý hộ khẩu</h3>
 			<PaginatedTable
+					
 				tableProps={{
 					columns: [
 						{ accessorKey: "name", header: "Tên hộ khẩu" },
@@ -57,6 +58,25 @@ export default function HouseholdManage() {
 							navigate(`/household/expand/${row.original._id}`);
 						},
 					}),
+					displayColumnDefOptions: {
+						'mrt-row-actions': {
+						  header: 'Chỉnh sửa', 
+						},
+					  },
+					enableRowActions:true,
+					renderRowActions:({row})=>(
+						<>
+						<IconButton style={{color:"red"}} onClick={()=>{
+							fetch.post(BASE_URL+"/households/delete").then(()=>{
+								toast.success("Xóa hộ khẩu thành công!")
+								navigate(0)
+							}).catch(()=>{
+								toast.warning("Xóa hộ khẩu thất bại!")
+
+							})
+						}}><Delete/></IconButton>
+						</>
+					),
 					renderTopToolbarCustomActions: ({ table }) => (
 						<Box
 						  sx={{

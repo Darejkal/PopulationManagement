@@ -72,7 +72,7 @@ export default function Layout({
 										<NavDropdown.Item
 											onClick={() => navigate("/household/manage")}
 										>
-											Tạo hộ khẩu
+											Quản lý hộ khẩu
 										</NavDropdown.Item>
 									</NavDropdown>
 								}

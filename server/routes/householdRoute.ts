@@ -1,6 +1,6 @@
 import express, { Router } from "express";
 import { authMiddleware, isAdmin } from "../middlewares/authMiddleware";
-import { getHouseholdBasedOnParams, createHousehold,getPaginated, getHouseholds, getHouseholdDetail,getMembers } from "../controllers/HouseholdController";
+import { getHouseholdBasedOnParams, createHousehold,getPaginated, getHouseholds, getHouseholdDetail,getMembers ,deleteHousehold} from "../controllers/HouseholdController";
 
 const router: Router = express.Router();
 router.use((req,res,next)=>{
@@ -9,6 +9,7 @@ router.use((req,res,next)=>{
 })
 router.get("/", authMiddleware, getHouseholdBasedOnParams);
 router.get("/members/:id", authMiddleware, getMembers);
+router.post("/delete", authMiddleware, deleteHousehold);
 router.get("/all", authMiddleware, getHouseholds);
 router.post("/create", authMiddleware, createHousehold);
 router.get("/:id", authMiddleware, getHouseholdDetail);

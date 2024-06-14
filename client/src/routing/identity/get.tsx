@@ -113,7 +113,7 @@ const CanBoList = ({ setUserToModify }) => {
 										navigate(0);
 									})
 									.catch((error) => {
-										console.log("Lỗi khi tạo người dùng:", error);
+										toast.warning("Lỗi khi xóa người dùng:", error);
 									});
 							}}
 							hidden={currentUser.email == row.original.email}
@@ -148,23 +148,37 @@ const CanBoModify = ({ userToModify, setUserToModify }) => {
 	React.useEffect(() => {
 		if (userToModify) {
 			Object.keys(userInfos).forEach((k) => {
+				if(userInfos[k].name==="password"){
+					return
+				}
 				document
 					.getElementById(userInfos[k].name)
-					?.setAttribute("value", userToModify[userInfos[k].name]);
+					?.setAttribute("value", userToModify[userInfos[k].name]??"");
 			});
 		}
 	}, [userToModify]);
 	React.useEffect(() => {
 		console.log(userToModify);
 	});
+	const navigate=useNavigate()
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		dispatch(updateUserByEmail(userToModify.email))
+		const data = new FormData(e.currentTarget);
+		let updatUser = userInfos.reduce((acc, info) => {
+			acc[info.name] = data.get(info.name);
+			return acc;
+		}, {});
+		dispatch(updateUserByEmail({
+			oldemail:userToModify.email as string,
+			userData:updatUser as any
+		}))
 			.then((value) => {
-				toast("Xóa người dùng " + userToModify.email + " thành công!");
+				alert("Cập nhật người dùng " + userToModify.email + " thành công!");
 				setUserToModify(undefined);
+				navigate(0)
 			})
 			.catch((e) => {
+				toast.warning("Cập nhật người dùng " + userToModify.email + " thất bại!");
 				console.log("error");
 			});
 	};
@@ -195,13 +209,16 @@ const CanBoModify = ({ userToModify, setUserToModify }) => {
 				}}
 			>
 				{userInfos.map((info) => {
+					if(info.name==="password"){
+						return
+					}
 					return info.vals.length ? (
 						<div style={{ width: "80%" }} key={info.name}>
 							<label id={info.label}>{info.label}</label>
 							<Select
 								defaultValue={info.default_val}
 								labelId={info.label}
-								required
+								required={info.required}
 								id={info.name}
 								name={info.name}
 								autoFocus
@@ -216,7 +233,7 @@ const CanBoModify = ({ userToModify, setUserToModify }) => {
 						<CustomTextInput
 							inputProps={{
 								defaultValue: info.default_val,
-								required: true,
+								required: info.required,
 								id: info.name,
 								name: info.name,
 								type: info.type,

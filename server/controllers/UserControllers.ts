@@ -22,6 +22,7 @@ const listUser = asyncHandler(async (req: Request, res: Response) => {
 				sex,
 				position,
 				household,
+				hokhau,
 				status
 			}) => ({
 				email,
@@ -32,6 +33,7 @@ const listUser = asyncHandler(async (req: Request, res: Response) => {
 				sex,
 				// @ts-ignore
 				household:household?.address,
+				hokhau,
 				position,
 				status
 			})
@@ -77,12 +79,14 @@ const getUser = asyncHandler(async (req: Request, res: Response) => {
 
 const createUser = asyncHandler(async (req: Request, res: Response) => {
 	try {
-		if("household" in req.body){
+		if("household" in req.body&&req.body.household){
 			const household=await Household.findOne({address: req.body.household})
 			if(!household){
 				throw "Số phòng không đúng!"
 			}
-			req.body.household=household
+			req.body.household=household.id
+		} else{
+			req.body.household=undefined
 		}
 		const newUser = await User.create(req.body);
 		let { password, ...return_user } = newUser;
@@ -124,27 +128,38 @@ const deleteUser = asyncHandler(async (req: Request, res: Response) => {
 });
 const updateUserByEmail=asyncHandler(async(req:Request,res:Response)=>{
 	try {
-		if("_id" in req.body.user){
-			delete req.body.user._id
-		}
-		const email=req.body.email
+		const email=req.body.oldemail
 		if (!email) {
 			res.status(500).send({
 				message: "No email provided",
 			});
 			return;
 		}
-		const result = await User.findOneAndUpdate({ email },req.body.user);
-		if(result){
-			res.status(200).send({
-				message: "Update user successfully",
-			});
+		if("_id" in req.body.userData){
+			delete req.body.userData._id
 		}
+		if(! req.body.userData.password){
+			delete req.body.userData.password
+		}
+		console.log(req.body.userData)
+		if(typeof req.body.userData.household==="undefined"||req.body.userData.household===""||req.body.userData.household==="undefined"){
+			delete req.body.userData.household;
+		} 
+		const result = await User.findOne({ email });
+		if(!result){
+			throw "user not found"
+		}
+		Object.assign(result,req.body.userData);
+		result.save()
+		res.status(200).send({
+			message: "Update user successfully",
+		});
 
 	} catch (error: any) {
 		console.error("Error:", error);
 		res.status(500).send({
-			message: "Error deleting user",
+			message: "Error updating user",
+			error:error.message??error
 		});
 	}
 } )

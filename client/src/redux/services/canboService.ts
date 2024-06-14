@@ -75,14 +75,10 @@ const userService = {
     deleteUserByEmail,
     isAdmin,
     updateUserByEmail:async (props:{userData:IUser,oldemail:string})=>{
-        try {
             const response:{data:string} = await axios.post(`${base_url}user/update`,props,config());
             if (response) {
                 return true
             }
-        } catch(e:any) {
-            return false
-        }
     }
 }
 export default userService

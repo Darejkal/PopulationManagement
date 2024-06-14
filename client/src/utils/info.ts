@@ -3,7 +3,8 @@ const createInfo = (
 	label,
 	default_val = undefined,
 	type = "text",
-	vals = []
+	vals = [],
+	required=true
 ) => {
 	return {
 		name: name,
@@ -11,6 +12,7 @@ const createInfo = (
 		type: type,
 		vals: vals,
 		default_val: default_val,
+		required
 	};
 };
 export const userInfos = [
@@ -20,9 +22,9 @@ export const userInfos = [
 	createInfo("lastname", "Họ", ""),
 	createInfo("phoneNumber", "SĐT", ""),
 	createInfo("sex", "Giới", ""),
-	createInfo("household", "Số phòng", ""),
+	createInfo("household", "Số phòng", "","",[],false),
 	createInfo("CCCD", "CCCD", ""),
-	createInfo("hokhau", "Hộ Khẩu", ""),
+	createInfo("hokhau", "Hộ Khẩu", "","",[],false),
 	createInfo("status", "Tình trạng", "","text",["Cư dân","Tạm trú","Tạm vắng","Người Dùng"]),
 	createInfo("position", "Chức danh", "", "text", ["Admin", "User"]),
 ];

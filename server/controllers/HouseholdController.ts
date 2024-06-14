@@ -45,6 +45,9 @@ const createHousehold = asyncHandler(async (req: Request, res: Response) => {
 		if (!owner) {
 			throw "owner not found";
 		}
+		// if(owner.household){
+		// 	throw "owner already in a household"
+		// }
 		const newHousehold = await HouseholdModel.create({
 			...req.body,
 			owner: owner._id,
@@ -62,7 +65,20 @@ const createHousehold = asyncHandler(async (req: Request, res: Response) => {
 		});
 	}
 });
-
+const deleteHousehold=asyncHandler(async (req: Request, res: Response) => {
+	try {
+		const {id}=req.body;
+		await HouseholdModel.findByIdAndDelete(id);
+		res.status(200).send({
+			message: "Delete household successfully",
+		});
+	} catch (error: any) {
+		res.status(500).send({
+			message: "Error delete household",
+			error: error.message,
+		});
+	}
+});
 const getHouseholds = asyncHandler(async (req: Request, res: Response) => {
 	try {
 		const households = await HouseholdModel.find().populate("owner");
@@ -183,5 +199,6 @@ export {
 	createHousehold,
 	getHouseholds,
 	getHouseholdDetail,
-	getMembers
+	getMembers,
+	deleteHousehold
 };

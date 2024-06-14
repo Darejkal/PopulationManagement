@@ -77,7 +77,7 @@ const CreateUserPage = () => {
 							<Select
 								defaultValue={info.default_val}
 								labelId={info.label}
-								required
+								required={info.required}
 								id={info.name}
 								name={info.name}
 								autoFocus
@@ -92,7 +92,7 @@ const CreateUserPage = () => {
 						<CustomTextInput
 							inputProps={{
 								defaultValue: info.default_val,
-								required: true,
+								required:info.required,
 								id: info.name,
 								name:info.name,
 								type: info.type,
