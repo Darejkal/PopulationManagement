@@ -21,8 +21,9 @@ import { BASE_URL, base_url } from "../../utils/config";
 import { useTimeField } from "@mui/x-date-pickers/TimeField/useTimeField";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { mkConfig, generateCsv, download } from 'export-to-csv'; 
-import { Box, Button } from '@mui/material';
-
+import { Box, Button, IconButton } from '@mui/material';
+import { csvConfig } from "../../utils/config";
+import { Check, Close, Edit } from "@mui/icons-material";
 export default function HouseholdFeeManagePage(){
     const {id}=useParams()
     const household = useSelector((state) => state?.household?.householdDetail);
@@ -34,9 +35,24 @@ export default function HouseholdFeeManagePage(){
         fetch.get(BASE_URL+"/fees/getFeeRelOfHousehold/"+id).then((v)=>{
         console.log(v);
         setFeeRels(v.feeRels)
+        toast.dismiss()
           toast.success("Lấy thông tin phí thành công")
         }).catch((e)=>{
+        toast.dismiss()
           toast.warning("Lấy thông tin phí thất bại!")
+    
+        })
+      }
+      const getContribRelOfHousehold=(id)=>{
+        fetch.get(BASE_URL+"/fees/getContribRelOfHousehold/"+id).then((v)=>{
+        console.log(v);
+        setContriRels(v.contribRels)
+        toast.dismiss()
+          toast.success("Lấy thông tin đóng góp thành công")
+        }).catch((e)=>{
+        toast.dismiss()
+
+          toast.warning("Lấy thông tin đóng góp thất bại!")
     
         })
       }
@@ -44,6 +60,7 @@ export default function HouseholdFeeManagePage(){
     useEffect(() => {
         getFeeHouseholdList(id);
         getFeeRelOfHousehold(id);
+        getContribRelOfHousehold(id);
     }, [dispatch, id]);
 
     const getFeeHouseholdList = (id) => {
@@ -55,7 +72,7 @@ export default function HouseholdFeeManagePage(){
             <Table striped bordered>
             <tbody>
             <tr>
-                <td>Số hộ khẩu</td>
+                <td>Tên hộ khẩu</td>
                 <td>{household?.name}</td>
             </tr>
             <tr>
@@ -71,12 +88,6 @@ export default function HouseholdFeeManagePage(){
         );
     };
 
-    const csvConfig = mkConfig({
-        fieldSeparator: ',',
-        decimalSeparator: '.',
-        useKeysAsHeaders: true,
-    });
-
     type feeHouseholdRel = {
         household: String,
         name: String,
@@ -89,8 +100,20 @@ export default function HouseholdFeeManagePage(){
         relList: String,
     }
 
-    const handleExportRows = (rows: MRT_Row<feeHouseholdRel>[]) => {
-        const rowData = rows.map((row) => row.original);
+    const handleExportHouseholdRows = (rows: MRT_Row<feeHouseholdRel>[]) => {
+        const rowData = rows.map((row) => {
+            let data=row.original
+            if("_id" in data){
+                delete data._id
+            }
+            if("_v" in data){
+                delete data._v
+            }
+            data.householdname=household?.name
+            data.householdowner=household?.owner?.firstname??"" + ' ' + household?.owner?.lastName??""
+            data.householdaddress=household?.address
+            return data
+        });
         const csv = generateCsv(csvConfig)(rowData);
         download(csvConfig)(csv);
     };    
@@ -102,9 +125,36 @@ export default function HouseholdFeeManagePage(){
         </div>
         <div style={{marginTop:"1rem"}}></div>
 
-        <h3>Thông tin các khoản phí bắt buộc</h3>
+        <h3>Thông tin các khoản phí và đóng góp</h3>
         <MaterialReactTable
-            data = {feeRels}
+            data = {feeRels??[]}
+            displayColumnDefOptions={ {
+                'mrt-row-actions': {
+                  header: 'Chỉnh sửa', 
+                },
+              }}
+            enableRowActions
+            renderRowActions={({row})=>(
+                <>
+                <IconButton style={{color:(row.original.status?"red":"green")}} onClick={()=>{
+                    fetch.post(BASE_URL+"/fees/updaterelation",{
+                        updates: {
+                            status:row.original.status?false:true
+                        },
+                        id:row.original._id
+                    }).then(()=>{
+                        setFeeRels((pre)=>(pre.map((v)=>{
+                            if(v._id===row.original._id){
+                                v.status=v.status?false:true
+                            }
+                            return v
+                        })))
+                    }).catch(()=>{
+                        toast.warning("Có lỗi khi truy vấn")
+                    })
+                }}>{row.original.status?<Close/>:<Check/>}</IconButton>
+                </>
+            )}
             columns={[
                 {
                     accessorKey: "name",
@@ -146,19 +196,42 @@ export default function HouseholdFeeManagePage(){
                 >
                   <Button
                     disabled={table.getRowModel().rows.length === 0}
-                    onClick={() => handleExportRows(table.getRowModel().rows)}
+                    onClick={() => handleExportHouseholdRows(table.getFilteredRowModel().rows)}
                     startIcon={<FileDownloadIcon />}
                     >
-                    Export Page Rows
+                    Trích xuất dữ liệu
                   </Button>
                   
                 </Box>
             )}
         />
+        <div style={{marginTop:"1rem"}}></div>
 
-        <h3>Thông tin các khoản đóng góp</h3>
+        {/* <h3>Thông tin các khoản đóng góp</h3>
         <MaterialReactTable
-            data = {feeRels}
+            enableRowActions
+            renderRowActions={({row})=>(
+                <>
+                <IconButton style={{color:(row.original.status?"red":"green")}} onClick={()=>{
+                    fetch.post(BASE_URL+"/contributions/updaterelation",{
+                        updates: {
+                            status:row.original.status?false:true
+                        },
+                        id:row.original._id
+                    }).then(()=>{
+                        setFeeRels((pre)=>(pre.map((v)=>{
+                            if(v._id===row.original._id){
+                                v.status=v.status?false:true
+                            }
+                            return v
+                        })))
+                    }).catch(()=>{
+                        toast.warning("Có lỗi khi truy vấn")
+                    })
+                }}>{row.original.status?<Close/>:<Check/>}</IconButton>
+                </>
+            )}
+            data = {contriRels??[]}
             columns={[
                 {
                     accessorKey: "name",
@@ -186,6 +259,25 @@ export default function HouseholdFeeManagePage(){
                     header: "Nộp muộn nhất vào"
                 }
             ]}
-        />
+            renderTopToolbarCustomActions={ ({ table }) => (
+                <Box
+                  sx={{
+                    display: 'flex',
+                    gap: '16px',
+                    padding: '8px',
+                    flexWrap: 'wrap',
+                  }}
+                >
+                  <Button
+                    disabled={table.getRowModel().rows.length === 0}
+                    onClick={() => handleExportHouseholdRows(table.getFilteredRowModel().rows)}
+                    startIcon={<FileDownloadIcon />}
+                    >
+                    Trích xuất dữ liệu
+                  </Button>
+                  
+                </Box>
+            )}
+        /> */}
     </>
 }

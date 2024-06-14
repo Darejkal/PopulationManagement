@@ -28,7 +28,7 @@ function PopulationList() {
         <Table striped bordered>
           <tbody>
           <tr>
-            <td>Số hộ khẩu</td>
+            <td>Tên hộ khẩu</td>
             <td>{household?.name}</td>
           </tr>
           <tr>

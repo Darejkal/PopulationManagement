@@ -4,10 +4,10 @@ export interface IFee  {
     name: string;
     amount: number;
     description?: string;
-    feeType?: "Household" | "Individual";
     frequency: "yearly" | "monthly";
-	houseType: "Penhouse"|"House"|"Kiot"|"Underground"|"All";
-
+	houseType: "Penhouse"|"House"|"Kiot"|"Underground"|"All"|"Individual";
+    weight:"None"|"HouseSize",
+    useremail?:string
 }
 
 const FeeSchema: Schema = new mongoose.Schema(
@@ -20,12 +20,17 @@ const FeeSchema: Schema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        weight: {
+            type: String,
+            enum: ["None", "HouseSize"],
+            default:"None",
+            required: true,
+        },
         description: {
             type: String,
         },
-        feeType: {
+        useremail: {
             type: String,
-            enum: ["Household", "Individual"],
         },
         frequency: {
             type: String,
@@ -34,7 +39,7 @@ const FeeSchema: Schema = new mongoose.Schema(
         },
 	    houseType:{
             type:String,
-            enum:["Penhouse","House","Kiot","Underground","All"],
+            enum:["Penhouse","House","Kiot","Underground","All","Individual"],
         }
     },
     {

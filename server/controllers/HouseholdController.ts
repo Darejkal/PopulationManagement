@@ -49,6 +49,8 @@ const createHousehold = asyncHandler(async (req: Request, res: Response) => {
 			...req.body,
 			owner: owner._id,
 		});
+		owner.household=newHousehold.id
+		await owner.save()
 		res.status(200).send({
 			newHousehold,
 			message: "Create household successfully",

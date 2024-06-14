@@ -4,6 +4,7 @@ import FeeModel from "../models/feeModel";
 import FeeHouseholdRel, { IFeeHouseholdRel } from "../models/feeHouseholdRelationModel";
 import Household from "../models/householdModel";
 import mongoose from "mongoose";
+import userModel from "../models/userModel";
 
 const getAllFee = asyncHandler(async (req: Request, res: Response) => {
   try {
@@ -36,6 +37,12 @@ const updateFee = asyncHandler(async (req: Request, res: Response) => {
 
 const createFee = asyncHandler(async (req: Request, res: Response) => {
   try {
+    if(req.body.useremail){
+      let user =await userModel.findOne({email:req.body.useremail})
+      if(!user){
+        throw "no user found"
+      }
+    }
     await FeeModel.create(req.body);
     res.status(201).send({
       message: "Create fee success",
@@ -84,30 +91,51 @@ const createFeeRel=asyncHandler(async (req: Request, res: Response) => {
       throw "date exception"
     }
     const households=await Household.find();
-    let fees=await FeeHouseholdRel.insertMany(households.reduce((pre,v)=>{
-      if(v.getHouseholdType(v.address)===fee.houseType){
-        pre.push( {
-          household: v.id,
-          fee: fee.id,
-          name: fee.name+" "+suffix,
-          amount: fee.amount,
-          status: false,
-          startTime,
-          lateTime
-        })
+    if(fee.houseType!=="Individual"){
+      let fees=await FeeHouseholdRel.insertMany(households.reduce((pre,v)=>{
+        if(fee.houseType==="All"||v.getHouseholdType(v.address)===fee.houseType){
+          pre.push( {
+            household: v.id,
+            fee: fee.id,
+            name: fee.name+" "+suffix,
+              // @ts-ignore
+             amount: (fee.weight?fee.amount*v.area:fee.amount),
+            status: false,
+            startTime,
+            lateTime
+          })
+        }
+        return pre
+      },[] as IFeeHouseholdRel[]))
+    } else{
+      let user=await userModel.findOne({email:fee.useremail}).populate("household")
+      if(!user){
+        throw "no user found"
       }
-      return pre
-    },[] as IFeeHouseholdRel[]))
+      if(!user?.household){
+        throw "user not in a house"
+      }
+      await FeeHouseholdRel.create({
+        // @ts-ignore
+        household: user.household.id,
+        fee: fee.id,
+        name: fee.name+" "+suffix,
+        // @ts-ignore
+        amount: (fee.weight?fee.amount*user.household.area:fee.amount),
+        status: false,
+        startTime,
+        lateTime
+      })
+    }
     await session.commitTransaction();
     session.endSession();
-    console.log(fees)
     res.status(200).send({
       message: "Giao phí chu kỳ thành công!",
     });
   } catch(error:any) {
     res.status(500).send({
       message: "Giao phí chu kỳ thất bại!",
-      error: error.message,
+      error: error.message??error,
     });
   }
 });
@@ -128,10 +156,13 @@ const getFeeRelOfHousehold=asyncHandler(async (req:Request,res:Response)=>{
 const updateFeeRel=asyncHandler(async (req:Request,res:Response)=>{
   try {
     const {id,updates}:{id:string,updates:any}=req.body;
-    const feeRel=await FeeHouseholdRel.findByIdAndUpdate(id,updates);
+    let feeRel=await FeeHouseholdRel.findById(id);
     if(!feeRel){
       throw "Cập nhật phí thu thất bại"
     }
+    Object.assign(feeRel,updates)
+    console.log(feeRel)
+    await feeRel.save()
     res.status(200).send({
       message: "Cập nhật khoản phí thu thành công",
     });

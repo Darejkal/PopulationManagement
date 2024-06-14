@@ -1,21 +1,38 @@
 import { toast } from "react-toastify";
 import { PaginatedTable } from "../../components/PaginatedTable";
 import { useFetch } from "../../helpers/useFetch";
-import { BASE_URL } from "../../utils/config";
+import { BASE_URL, csvConfig } from "../../utils/config";
 import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Button, Form, Modal } from "react-bootstrap";
-import { TextField } from "@mui/material";
-
+import { Box, TextField,Button as MaterialButton } from "@mui/material";
+import { FileDownload } from "@mui/icons-material";
+import { MRT_Row } from "material-react-table";
+import { download, generateCsv } from "export-to-csv";
 export default function HouseholdManage() {
 	const navigate = useNavigate();
 	const fetch = useFetch();
+ 
 	const [households, setHouseholds] = useState<
 		(IHousehold & { _id: string })[]
 	>([]);
 	const [next, setNext] = useState<string>("");
 	const [dynamicModal, setDynamicModal] = useState<ReactNode>(<></>);
+	const handleExportHouseholdRows = (rows: MRT_Row<IHousehold & { _id: string }>[]) => {
+        const rowData = rows.map((row) => {
+            let data=row.original
+            if("_id" in data){
+                delete data._id
+            }
+            if("_v" in data){
+                delete data._v
+            }
+            return data
+        });
+        const csv = generateCsv(csvConfig)(rowData);
+        download(csvConfig)(csv);
+    };   
 	return (
 		<div
 			style={{
@@ -30,7 +47,7 @@ export default function HouseholdManage() {
 			<PaginatedTable
 				tableProps={{
 					columns: [
-						{ accessorKey: "name", header: "Số hộ khẩu" },
+						{ accessorKey: "name", header: "Tên hộ khẩu" },
 						{ accessorKey: "area", header: "Diện tích" },
 						{ accessorKey: "address", header: "Địa chỉ" },
 						{ accessorKey: "owner", header: "Chủ" },
@@ -40,7 +57,27 @@ export default function HouseholdManage() {
 							navigate(`/household/expand/${row.original._id}`);
 						},
 					}),
+					renderTopToolbarCustomActions: ({ table }) => (
+						<Box
+						  sx={{
+							display: 'flex',
+							gap: '16px',
+							padding: '8px',
+							flexWrap: 'wrap',
+						  }}
+						>
+						  <MaterialButton
+							disabled={table.getRowModel().rows.length === 0}
+							onClick={() => handleExportHouseholdRows(table.getFilteredRowModel().rows)}
+							startIcon={<FileDownload />}
+							>
+							Trích xuất dữ liệu
+						  </MaterialButton>
+						  
+						</Box>
+					)
 				}}
+
 				pagination={{
 					getPaginated: async ({ limit, next, query }) => {
 						return await fetch
@@ -176,7 +213,7 @@ function CreateHousehold({ show }: { show?: boolean }) {
 								autoComplete="off"
 								inputRef={fields.name.ref}
 								{...fields.name}
-								label={"Số hộ khẩu"}
+								label={"Tên hộ khẩu"}
 								error={!!errors[fields.name.name]}
 								helperText={(errors[fields.name.name]?.message as string) ?? ""}
 							/>

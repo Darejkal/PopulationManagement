@@ -14,6 +14,7 @@ const houseMapper={
   "House":"Nhà dân",
   "Kiot":"Kiot",
   "Underground":"Tầng đế",
+  "Individual":"Cá nhân",
 }
 export default function TableFeeRecurring(props) {
   const [id, setId] = useState(null);
@@ -81,11 +82,11 @@ export default function TableFeeRecurring(props) {
             <TableRow>
               <TableCell>#</TableCell>
               <TableCell>Tên khoản phí</TableCell>
-              <TableCell>Loại</TableCell>
               <TableCell>Đối tượng</TableCell>
               <TableCell>Số tiền</TableCell>
               <TableCell>Tần suất</TableCell>
               <TableCell>Hành động</TableCell>
+              <TableCell>Email đối tượng</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -93,9 +94,6 @@ export default function TableFeeRecurring(props) {
               <TableRow key={row._id}>
                 <TableCell>{index + 1}</TableCell>
                 <TableCell>{row.name}</TableCell>
-                <TableCell>
-                  {row.feeType === "Household" ? "Hộ khẩu" : "Cá nhân"}
-                </TableCell>
                 <TableCell>
                   {houseMapper[row.houseType]}
                 </TableCell>
@@ -132,6 +130,9 @@ export default function TableFeeRecurring(props) {
                   >
                     Thu ngay
                   </Button>
+                </TableCell>
+                <TableCell>
+                  {row.useremail??""}
                 </TableCell>
               </TableRow>
             ))}

@@ -3,9 +3,10 @@ type IFee = {
 	name: string;
 	amount: number;
 	description?: string;
-	feeType?: "Household" | "Individual";
+	useremail?: string;
 	frequency?: "yearly" | "monthly";
-	houseType: "Penhouse"|"House"|"Kiot"|"Underground"|"All";
+	houseType: "Penhouse"|"House"|"Kiot"|"Underground"|"All"|"Individual";
+	weight:"None"|"HouseSize"
 };
 type IContribution = {
 	_id?: string;
@@ -30,7 +31,7 @@ type IContributionHouseholdRelPopulated = Omit<
 > & {
 	household: {
 		name?: string;
-		area: string;
+		area: number;
 		address: string;
 		owner?: string;
 		memberNumber?: string;
@@ -50,7 +51,7 @@ type IContributionHouseholdRelPopulated = Omit<
 };
 type IHousehold = {
 	name?: string;
-	area: string;
+	area: number;
 	address: string;
 	owner?: string;
 	memberNumber?: string;

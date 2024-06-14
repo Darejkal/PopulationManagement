@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import asyncHandler from "express-async-handler";
 import ContributionModel from "../models/contributionModel";
+import ContributionHouseholdRel from "../models/contriHouseholdRelationModel";
 
 const getAllContributions = asyncHandler(async (req: Request, res: Response) => {
   try {
@@ -84,10 +85,42 @@ const deleteContributions = asyncHandler(async (req: Request, res: Response) => 
     });
   }
 });
-
+const getContribRelOfHousehold=asyncHandler(async (req:Request,res:Response)=>{
+  try {
+    const feeRels=await ContributionHouseholdRel.find({household:req.params.id});
+    res.status(200).send({
+      message: "Lấy khoản đóng góp thành công",
+      feeRels:feeRels
+    });
+  } catch(error:any) {
+    res.status(500).send({
+      message: "Error deleting fee",
+      error: error.message,
+    });
+  }
+})
+const updateContribRel=asyncHandler(async (req:Request,res:Response)=>{
+  try {
+    const {id,updates}:{id:string,updates:any}=req.body;
+    const feeRel=await ContributionHouseholdRel.findByIdAndUpdate(id,updates);
+    if(!feeRel){
+      throw "Cập nhật phí thu thất bại"
+    }
+    res.status(200).send({
+      message: "Cập nhật khoản phí thu thành công",
+    });
+  } catch(error:any) {
+    res.status(500).send({
+      message: "Error updating feerel",
+      error: error.message,
+    });
+  }
+})
 export {
   getAllContributions,
   updateContributions,
   createContributions,
   deleteContributions,
+  getContribRelOfHousehold,
+  updateContribRel
 };

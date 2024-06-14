@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { feeService } from "../../../redux/services/feeService";
+import { toast } from "react-toastify";
 
 export default function UpdateFeeRecurring(props: {
 	data: IFee[];
@@ -13,9 +14,10 @@ export default function UpdateFeeRecurring(props: {
 	const [dataUpdate, setDataUpdate] = useState<IFee>({
 		name: "",
 		amount: 0,
-		feeType: undefined,
 		frequency: undefined,
 		houseType: undefined,
+		useremail:undefined,
+		weight:"None"
 	});
 
 	useEffect(() => {
@@ -23,17 +25,25 @@ export default function UpdateFeeRecurring(props: {
 			setDataUpdate({
 				name: detail.name,
 				amount: detail.amount,
-				feeType: detail.feeType,
 				frequency: detail.frequency,
 				houseType: detail.houseType,
+				weight:detail.weight
 			});
 		}
 	}, []);
 
 	const handleSubmit = async () => {
-		await feeService.updateFee(props.id, dataUpdate);
-		props.handleLoading();
-		props.handleClose();
+		if(dataUpdate.houseType!=="Individual"){
+			dataUpdate.useremail=undefined
+		}
+		await feeService.updateFee(props.id, dataUpdate).then(()=>{
+			toast.info("Cập nhật thành công")
+			props.handleLoading();
+			props.handleClose();
+		}).catch(()=>{
+			toast.info("Cập nhật thất bại")
+
+		})
 	};
 
 	return (
@@ -59,6 +69,19 @@ export default function UpdateFeeRecurring(props: {
 								}}
 							/>
 						</Form.Group>
+						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+							<Form.Label>Số tiền</Form.Label>
+							<Form.Control
+								type="integer"
+								value={dataUpdate.amount}
+								onChange={(e) => {
+									setDataUpdate({
+										...dataUpdate,
+										amount: Number(e.target.value),
+									});
+								}}
+							/>
+						</Form.Group>
 						<Form.Group
 							className="mb-3 d-flex justify-content-around"
 							controlId="exampleForm.ControlInput1"
@@ -69,46 +92,67 @@ export default function UpdateFeeRecurring(props: {
 								onChange={(e) => {
 									setDataUpdate({
 										...dataUpdate,
-										houseType: e.target.value as IFee["houseType"], 
+										houseType: e.target.value,
 									});
 								}}
 							>
-								<option value="Penhouse">Hộ cao cấp</option>
+								<option value="Individual">Cá nhân</option>
+								<option value="All">Tất cả</option>
 								<option value="House">Nhà dân</option>
 								<option value="Kiot">Kiot</option>
 								<option value="Underground">Tầng đế</option>
-								<option value="All">Tất cả</option>
+								<option value="Penhouse">Hộ cao cấp</option>
 							</Form.Select>
+						</Form.Group>
+						<Form.Group
+							className="mb-3 d-flex justify-content-around"
+							controlId="exampleForm.ControlInput1"
+						>
 							<Form.Select
 								className="me-4"
-								value={dataUpdate.feeType}
-								onChange={(e) => {
-									setDataUpdate({
-										...dataUpdate,
-										feeType: e.target.value as "Household" | "Individual",
-									});
-								}}
-							>
-								<option value="Household">Hộ khẩu</option>
-								<option value="Individual">Cá nhân</option>
-							</Form.Select>
-
-							<Form.Select
 								value={dataUpdate.frequency}
 								onChange={(e) => {
 									setDataUpdate({
 										...dataUpdate,
-										frequency: e.target.value as
-											| "yearly"
-											| "monthly"
-											| undefined,
+										frequency: e.target.value,
 									});
 								}}
 							>
-								<option>Tần suất</option>
 								<option value="monthly">1 tháng</option>
 								<option value="yearly">1 năm</option>
 							</Form.Select>
+							<Form.Select
+								className="me-4"
+								value={dataUpdate.weight}
+								onChange={(e) => {
+									setDataUpdate({
+										...dataUpdate,
+										weight: e.target.value,
+									});
+								}}
+							>
+								<option value="None">Không có trọng số</option>
+								<option value="HouseSize">Theo kích cỡ nhà</option>
+							</Form.Select>
+						</Form.Group>
+
+						<Form.Group>
+							{dataUpdate.houseType === "Individual" && (
+								<div>
+									<Form.Label>Email đối tượng</Form.Label>
+									<Form.Control
+										type="text"
+										autoFocus
+										value={dataUpdate.useremail}
+										onChange={(e) => {
+											setDataUpdate({
+												...dataUpdate,
+												useremail: e.target.value,
+											});
+										}}
+									/>
+								</div>
+							)}
 						</Form.Group>
 						<Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 							<Form.Label>Số tiền</Form.Label>

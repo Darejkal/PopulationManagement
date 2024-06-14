@@ -90,7 +90,7 @@ export default function CreatedList() {
     const [secondary, setSecondary] = React.useState(false);
 
     const content= (
-        <Box sx={{ flexGrow: 1, maxWidth: 752 }}>
+        <Box sx={{ flexGrow: 1}}>
             <Grid container spacing={1}>
                 <Grid item xs={15} md={25} >
                     <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">

@@ -3,7 +3,7 @@ import { IFee } from "./feeModel";
 
 export interface IHousehold  {
     name?: string;
-    area: string;
+    area: number;
     address: string;
     owner?: ObjectId;
 }
@@ -16,7 +16,7 @@ const HouseholdSchema: Schema<IHouseholdDocument> = new mongoose.Schema(
             type: String,
         },
         area: {
-            type: String,
+            type: Number,
             required: true,
         },
         address: {

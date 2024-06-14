@@ -19,20 +19,23 @@ export default function FeeHouseholdExpandPage() {
 	const household = useSelector<IStoreType>(
 		(state) => state?.household?.householdDetail
 	);
-  const fetch=useFetch();
+	const fetch = useFetch();
 	const dispatch = useDispatch<ThunkDispatch<any, any, any>>();
-  const [householdMembers,setHouseholdMembers]=useState<IUser[]>([]);
-  useEffect(()=>{
-    fetch.get(BASE_URL+"/households/members/"+id).then((v)=>{
-      if(typeof v.users !=="undefined"){
-        setHouseholdMembers(v.users);
-        return;
-      }
-      throw "Exception"
-    }).catch((e)=>{
-      toast.warning("Truy vấn thất bại. Kiểm tra kết nối!")
-    })
-  },[])
+	const [householdMembers, setHouseholdMembers] = useState<IUser[]>([]);
+	useEffect(() => {
+		fetch
+			.get(BASE_URL + "/households/members/" + id)
+			.then((v) => {
+				if (typeof v.users !== "undefined") {
+					setHouseholdMembers(v.users);
+					return;
+				}
+				throw "Exception";
+			})
+			.catch((e) => {
+				toast.warning("Truy vấn thất bại. Kiểm tra kết nối!");
+			});
+	}, []);
 	useEffect(() => {
 		getFeeHouseholdList(id);
 	}, [dispatch, id]);
@@ -48,7 +51,7 @@ export default function FeeHouseholdExpandPage() {
 			<Table striped bordered>
 				<tbody>
 					<tr>
-						<td>Số hộ khẩu</td>
+						<td>Tên hộ khẩu</td>
 						<td>{household?.name}</td>
 					</tr>
 					<tr>
@@ -82,42 +85,40 @@ export default function FeeHouseholdExpandPage() {
 		>
 			{household && (
 				<>
-        <h2>Thông tin hộ khẩu</h2>
-        <div style={{ marginTop: "1rem", width: "30rem" }}>
-          {renderHouseholdDetails(household)}
-        </div>
-        <div style={{marginTop:"1rem"}}></div>
-        <h2>Thông tin thành viên hộ khẩu</h2>
-        <div style={{padding:"1rem 10rem",width:"80vw"}}>
-        <MaterialReactTable
-          data={householdMembers}
-          columns={[
-            {
-              accessorKey:"email",
-              header:"Email"
-            },
-            {
-              accessorKey:"status",
-              header:"Tình trạng"
-            },
-            {
-              accessorKey:"firstname",
-              header:"Tên riêng"
-            },
-            {
-              accessorKey:"lastname",
-              header:"Tên họ"
-            },
-            {
-              accessorKey:"CCCD",
-              header:"CCCD"
-            },
-          ]
-        }
-          
-        />
-        </div>
-        </>
+					<h2>Thông tin hộ khẩu</h2>
+					<div style={{ marginTop: "1rem", width: "30rem" }}>
+						{renderHouseholdDetails(household)}
+					</div>
+					<div style={{ marginTop: "1rem" }}></div>
+					<h2>Thông tin thành viên hộ khẩu</h2>
+					<div style={{ padding: "1rem 10rem", width: "80vw" }}>
+						<MaterialReactTable
+							data={householdMembers}
+							columns={[
+								{
+									accessorKey: "email",
+									header: "Email",
+								},
+								{
+									accessorKey: "status",
+									header: "Tình trạng",
+								},
+								{
+									accessorKey: "firstname",
+									header: "Tên riêng",
+								},
+								{
+									accessorKey: "lastname",
+									header: "Tên họ",
+								},
+								{
+									accessorKey: "CCCD",
+									header: "CCCD",
+								},
+							]}
+						/>
+					</div>
+				</>
 			)}
 		</div>
 	);

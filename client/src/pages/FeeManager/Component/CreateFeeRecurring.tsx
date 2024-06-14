@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 import { feeService } from "../../../redux/services/feeService";
+import { toast } from "react-toastify";
 
 export default function CreateFeeRecurring(props: {
 	data: IFee[];
@@ -13,26 +14,27 @@ export default function CreateFeeRecurring(props: {
 	const [dataCreate, setDataCreate] = useState<IFee>({
 		name: "",
 		amount: 0,
-		feeType: undefined,
-		frequency: undefined,
-		houseType: undefined,
+		frequency: "monthly",
+		houseType: "All",
+		weight: "None",
+		useremail: undefined,
 	});
 
 	const handleSubmit = async () => {
-		if (
-			dataCreate.feeType &&
-			!["Household", "Individual"].find((v) => v === dataCreate.feeType)
-		) {
-			throw "invalid argument";
-		} else if (!dataCreate.feeType) {
-			setDataCreate({ ...dataCreate, feeType: undefined });
+		if( dataCreate.houseType !== "Individual"){
+			dataCreate.useremail=undefined
 		}
 		// @ts-ignore
-		await feeService.createFee({
+		feeService.createFee({
 			...dataCreate,
-		});
-		props.handleLoading();
-		props.handleClose();
+		}).then(()=>{
+			toast.success("Tạo phí thành công")
+			props.handleLoading();
+			props.handleClose();
+		}).catch(()=>{
+			toast.info("Tạo phí thất bại")
+
+		})
 	};
 	console.log(dataCreate);
 
@@ -78,19 +80,6 @@ export default function CreateFeeRecurring(props: {
 						>
 							<Form.Select
 								className="me-4"
-								value={dataCreate.feeType}
-								onChange={(e) => {
-									setDataCreate({
-										...dataCreate,
-										feeType: e.target.value,
-									});
-								}}
-							>
-								<option value="Household">Hộ khẩu</option>
-								<option value="Individual">Cá nhân</option>
-							</Form.Select>
-							<Form.Select
-								className="me-4"
 								value={dataCreate.houseType}
 								onChange={(e) => {
 									setDataCreate({
@@ -100,12 +89,19 @@ export default function CreateFeeRecurring(props: {
 								}}
 							>
 								<option value="All">Tất cả</option>
+								<option value="Individual">Cá nhân</option>
 								<option value="House">Nhà dân</option>
 								<option value="Kiot">Kiot</option>
 								<option value="Underground">Tầng đế</option>
 								<option value="Penhouse">Hộ cao cấp</option>
 							</Form.Select>
+						</Form.Group>
+						<Form.Group
+							className="mb-3 d-flex justify-content-around"
+							controlId="exampleForm.ControlInput1"
+						>
 							<Form.Select
+								className="me-4"
 								value={dataCreate.frequency}
 								onChange={(e) => {
 									setDataCreate({
@@ -114,10 +110,40 @@ export default function CreateFeeRecurring(props: {
 									});
 								}}
 							>
-								<option>Tần suất</option>
 								<option value="monthly">1 tháng</option>
 								<option value="yearly">1 năm</option>
 							</Form.Select>
+							<Form.Select
+								className="me-4"
+								value={dataCreate.weight}
+								onChange={(e) => {
+									setDataCreate({
+										...dataCreate,
+										weight: e.target.value,
+									});
+								}}
+							>
+								<option value="None">Không có trọng số</option>
+								<option value="HouseSize">Theo kích cỡ nhà</option>
+							</Form.Select>
+						</Form.Group>
+						<Form.Group>
+							{dataCreate.houseType === "Individual" && (
+								<div>
+									<Form.Label>Email đối tượng</Form.Label>
+									<Form.Control
+										type="text"
+										autoFocus
+										value={dataCreate.useremail}
+										onChange={(e) => {
+											setDataCreate({
+												...dataCreate,
+												useremail: e.target.value,
+											});
+										}}
+									/>
+								</div>
+							)}
 						</Form.Group>
 					</Form>
 				</Modal.Body>

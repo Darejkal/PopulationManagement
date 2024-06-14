@@ -29,7 +29,6 @@ import CreateUserPage from "./routing/identity/create";
 import HouseholdExpandPage from "./routing/household/expand";
 import UserManagement from "./routing/identity/get";
 import ChangePassword from "./routing/identity/change";
-import FeeAndContributionList from "./routing/statistics/fee";
 import  HouseholdFeeManagePage  from "./routing/feehousehold/manage";
 function App() {
   return (
@@ -103,11 +102,6 @@ function App() {
             path="/fee-recurring"
             element={<PrivateRoute element={<FeeRecurring />} />}
           ></Route>
-          {/*get fee and contribution management*/}
-          <Route
-            path="/statistics/fee"
-            element={<PrivateRoute element={<FeeAndContributionList />} />}
-          ></Route>
           <Route
             path="/identity/get"
             element={<AdminRoute element={<UserManagement />} />}
@@ -137,7 +131,7 @@ function App() {
             element={<PrivateRoute element={<Statistic />} />}
           ></Route>
           <Route
-            path="/CreatedList"
+            path="/statistics/fee"
             element={<PrivateRoute element={<CreatedList />} />}
           ></Route>
           <Route

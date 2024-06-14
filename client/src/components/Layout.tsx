@@ -57,11 +57,11 @@ export default function Layout({
 										>
 											Phí thu
 										</NavDropdown.Item>
-										<NavDropdown.Item
+										{/* <NavDropdown.Item
 											onClick={() => navigate("/fee-contribution")}
 										>
 											Đóng góp
-										</NavDropdown.Item>
+										</NavDropdown.Item> */}
 									</NavDropdown>
 								}
 								nelement={<></>}
@@ -80,14 +80,14 @@ export default function Layout({
 							/>
 							<NavDropdown title="Phí và đóng góp" id="contribution-dropdown">
 								<NavDropdown.Item onClick={() => navigate("/statistics/fee")}>
-									Lập danh sách
+								Xem danh sách
 								</NavDropdown.Item>
-								<NavDropdown.Item onClick={() => navigate("/CreatedList")}>
+								{/* <NavDropdown.Item onClick={() => navigate("/CreatedList")}>
 									Xem danh sách
-								</NavDropdown.Item>
-								<NavDropdown.Item onClick={() => navigate("/GetStatistic")}>
+								</NavDropdown.Item> */}
+								{/* <NavDropdown.Item onClick={() => navigate("/GetStatistic")}>
 									Thống kê
-								</NavDropdown.Item>
+								</NavDropdown.Item> */}
 							</NavDropdown>
 						</Nav>
 						<Nav>

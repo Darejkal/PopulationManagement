@@ -24,7 +24,7 @@ const updateFee = async (id:string, data:IFee) => {
   }
 };
 
-const createFee = async (data:{name:string,amount:number,description?:string,feeType?:"Household"|"Individual",frequency?:["yearly","monthly"]}) => {
+const createFee = async (data:IFee) => {
   try {
     const response = await axios.post(`${base_url}fees`, data, config());
     return response.data as {message:string};
