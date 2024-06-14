@@ -2,7 +2,7 @@ import Layout from "../../components/Layout";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
-import FeeList from "../../Components/FeeList";
+import FeeList from "../../NotComponents/FeeList";
 import Avatar from "@mui/material/Avatar";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
