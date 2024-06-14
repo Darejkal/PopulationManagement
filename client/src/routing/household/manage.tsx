@@ -30,7 +30,7 @@ export default function HouseholdManage() {
 			<PaginatedTable
 				tableProps={{
 					columns: [
-						{ accessorKey: "name", header: "Tên" },
+						{ accessorKey: "name", header: "Số hộ khẩu" },
 						{ accessorKey: "area", header: "Diện tích" },
 						{ accessorKey: "address", header: "Địa chỉ" },
 						{ accessorKey: "owner", header: "Chủ" },
@@ -176,7 +176,7 @@ function CreateHousehold({ show }: { show?: boolean }) {
 								autoComplete="off"
 								inputRef={fields.name.ref}
 								{...fields.name}
-								label={"Tên hộ"}
+								label={"Số hộ khẩu"}
 								error={!!errors[fields.name.name]}
 								helperText={(errors[fields.name.name]?.message as string) ?? ""}
 							/>
