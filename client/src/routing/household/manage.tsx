@@ -166,7 +166,7 @@ function CreateHousehold({ show }: { show?: boolean }) {
 		formState: { errors },
 		setValue,
 		setError,
-	} = useForm();
+	} = useForm({mode:"all"});
 	const navigate = useNavigate();
 	const fetch = useFetch();
 	useEffect(() => {
@@ -178,11 +178,16 @@ function CreateHousehold({ show }: { show?: boolean }) {
 		}),
 		area: register("area", {
 			required: "Điền diện tích",
+			pattern: {
+				value: /^\d+$/,
+				message:
+					"Phải là số",
+			},
 		}),
 		address: register("address", {
 			required: "Điền địa chỉ",
 			pattern: {
-				value: /^(K|U|H|P)\w{4}$/,
+				value: /^(K|U|H|P)\d{4}$/,
 				message:
 					"Địa chỉ nhà sai cú pháp. Cú pháp ví dụ: K1001. Kiểu cú pháp: (K|U|H|P)0000",
 			},
