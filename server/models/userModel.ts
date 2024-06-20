@@ -52,7 +52,8 @@ const UserSchema = new mongoose.Schema<IUserDocument>(
         },
         status:{
             type: String,
-            enum:["Cư dân","Tạm trú","Tạm vắng","Người Dùng"]
+            enum:["Cư dân","Tạm trú","Tạm vắng","Người Dùng"],
+            default:"Người Dùng"
         },
         position: {
             type: String,
