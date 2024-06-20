@@ -13,7 +13,7 @@ import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import MainListItems from '../NotComponents/listItems';
+import MainListItems from '../components/listItems';
 import UserDropdown from "../NotComponents/UserDropdown";
 import { Button } from 'react-bootstrap';
 import Layout from '../components/Layout';

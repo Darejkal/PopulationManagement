@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Title from "../../NotComponents/Title";
+import Title from "../../components/Title";
 import { Button, Table } from "react-bootstrap";
 import { TableBody, TableCell, TableHead, TableRow } from "@mui/material";
 import ModalConfirm from "./Component/ModalConfirm";

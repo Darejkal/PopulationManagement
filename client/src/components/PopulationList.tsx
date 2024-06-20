@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import Layout from '../components/Layout';
+import Layout from './Layout';
 import { Table } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";

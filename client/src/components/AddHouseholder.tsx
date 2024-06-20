@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Form, Button } from 'react-bootstrap';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Layout from '../components/Layout';
+import Layout from './Layout';
 import { useState } from 'react';
 import {toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'; 
