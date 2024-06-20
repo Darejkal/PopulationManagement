@@ -153,9 +153,11 @@ export const getPaginated = asyncHandler(
 			res.status(200).send({
 				results: results.map((prop) => {
 					let { owner, ...other } = prop.toObject();
+					console.log(owner)
+					console.log(other)
 					return {
 						// @ts-ignore
-						owner: owner.email,
+						owner: owner?.email??"",
 						...other,
 					};
 				}),
