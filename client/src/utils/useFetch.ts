@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import {config as getConfig} from "../../src/utils/config"
+import {config as getConfig} from "./config"
 export function useFetch() {
     const navigate=useNavigate();
     const conf=getConfig()

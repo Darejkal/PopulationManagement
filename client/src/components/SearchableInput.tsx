@@ -5,7 +5,7 @@ import { Variant } from "@mui/material/styles/createTypography";
 import debounce from "lodash/debounce";
 import { HTMLAttributes, RefObject, SyntheticEvent, useCallback, useEffect, useRef, useState } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { useFetch } from "../helpers/useFetch";
+import { useFetch } from "../utils/useFetch";
 
 export default function SearchableInput<
     Value,

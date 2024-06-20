@@ -1,6 +1,6 @@
 import { MRT_RowData, MRT_TableOptions, MaterialReactTable, MaterialReactTableProps, useMaterialReactTable,MRT_ColumnFiltersState,MRT_SortingState } from "material-react-table"
 import { useState,useEffect,type UIEvent } from "react";
-import { useFetch } from "../helpers/useFetch";
+import { useFetch } from "../utils/useFetch";
 type PartialBy<T, K extends keyof T> = Omit<T, K> & Partial<Pick<T, K>>
 export function PaginatedTable<TData extends MRT_RowData>(
     {tableProps,pagination}:{

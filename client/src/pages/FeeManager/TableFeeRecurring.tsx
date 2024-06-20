@@ -6,7 +6,7 @@ import CreateFeeRecurring from "./Component/CreateFeeRecurring";
 import UpdateFeeRecurring from "./Component/UpdateFeeRecurring";
 import ModalConfirm from "./Component/ModalConfirm";
 import { feeService } from "../../redux/services/feeService";
-import { useFetch } from "../../helpers/useFetch";
+import { useFetch } from "../../utils/useFetch";
 import { toast } from "react-toastify";
 import { BASE_URL } from "../../utils/config";
 const houseMapper={

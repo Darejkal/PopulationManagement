@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { PaginatedTable } from "../../components/PaginatedTable";
-import { useFetch } from "../../helpers/useFetch";
+import { useFetch } from "../../utils/useFetch";
 import { BASE_URL, csvConfig } from "../../utils/config";
 import { ReactNode, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
