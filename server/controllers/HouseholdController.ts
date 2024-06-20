@@ -65,6 +65,34 @@ const createHousehold = asyncHandler(async (req: Request, res: Response) => {
 		});
 	}
 });
+export const updateHousehold = asyncHandler(async (req: Request, res: Response) => {
+	try {
+		const id=req.body.id;
+		const updateParams=req.body.household;
+		const household=await HouseholdModel.findById(id);
+		if(!household){
+			throw "household not found"
+		}
+		if("owner" in updateParams){
+			const owner = await User.findOne({ email: updateParams.owner });
+			if (!owner) {
+				throw "owner not found";
+			}
+			updateParams.owner=owner.id
+		}
+
+		Object.assign(household,updateParams)
+		await household.save()
+		res.status(200).send({
+			message: "Update household successfully",
+		});
+	} catch (error: any) {
+		res.status(500).send({
+			message: "Error update household",
+			error: error.message??error,
+		});
+	}
+});
 const deleteHousehold=asyncHandler(async (req: Request, res: Response) => {
 	try {
 		const {id}=req.body;

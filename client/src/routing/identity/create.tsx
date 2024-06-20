@@ -72,7 +72,7 @@ const CreateUserPage = () => {
 			>
 				{userInfos.map((info) => {
 					return info.vals.length ? (
-						<div style={{ width: "80%" }} key={info.name}>
+						<div style={{ width: "80%",marginBottom:"1rem" }} key={info.name}>
 							<label id={info.label}>{info.label}</label>
 							<Select
 								defaultValue={info.default_val}
@@ -96,7 +96,8 @@ const CreateUserPage = () => {
 								id: info.name,
 								name:info.name,
 								type: info.type,
-								style: {},
+								style: {
+								},
 							}}
 							key={info.name}
 							style={{

@@ -213,7 +213,7 @@ const CanBoModify = ({ userToModify, setUserToModify }) => {
 						return
 					}
 					return info.vals.length ? (
-						<div style={{ width: "80%" }} key={info.name}>
+						<div style={{ width: "80%",marginBottom:"1rem" }} key={info.name}>
 							<label id={info.label}>{info.label}</label>
 							<Select
 								defaultValue={info.default_val}
