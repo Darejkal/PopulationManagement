@@ -3,11 +3,6 @@ import "./App.css";
 import { BrowserRouter, Navigate, Route, RouteProps, Routes } from "react-router-dom";
 import SignIn from "./pages/SignIn";
 import Dashboard from "./pages/DashBoard";
-// import {PrivateRoute} from "./route/PrivateRoute";
-// import FeeAndContributionList from "./pages/GetFeeAndContributionPages/feeAndContributionList";
-// import CreateHouseholdFeeList from "./pages/GetFeeAndContributionPages/CreateHouseholdFeeList";
-// import FeeHouseholdList from "./pages/GetFeeAndContributionPages/FeeHouseholdList";
-import FeeContribution from "./pages/FeeManager/FeeContribution";
 import FeeRecurring from "./pages/FeeManager/FeeRecurring";
 import CreateHousehold from "./pages/ManageHouseholdPage/CreateHousehold";
 import AddHouseholder from "./components/AddHouseholder";
@@ -17,9 +12,6 @@ import { PrivateRoute, AdminRoute } from "./middleware/PrivateRoute";
 import CreateHouseholdFeeList from "./pages/GetFeeAndContributionPages/CreateHouseholdFeeList";
 import FeeHouseholdList from "./pages/GetFeeAndContributionPages/FeeHouseholdList";
 import Statistic from "./pages/statistic/Statistic";
-import CreatedList from "./pages/GetFeeAndContributionPages/CreatedList";
-import CreateHouseholdContributionList from "./pages/GetFeeAndContributionPages/CreateHouseholdContributionList";
-import ContributionHouseholdList from "./pages/GetFeeAndContributionPages/ContributionHouseholdList";
 import 'react-toastify/dist/ReactToastify.css'; 
 import { ToastContainer } from "react-toastify";
 import HouseholdManage from "./routing/household/manage";
@@ -29,7 +21,8 @@ import CreateUserPage from "./routing/identity/create";
 import HouseholdExpandPage from "./routing/household/expand";
 import UserManagement from "./routing/identity/get";
 import ChangePassword from "./routing/identity/change";
-import  HouseholdFeeManagePage  from "./routing/feehousehold/manage";
+import  HouseholdFeeExpandPage  from "./routing/feehousehold/expand";
+import HouseholdFeeManagePage from "./routing/feehousehold/manage";
 function App() {
   return (
     <>
@@ -91,11 +84,11 @@ function App() {
             element={<PrivateRoute element={<ChangePassword />} />}
           ></Route>
           <Route
-            path="/fee-contribution"
-            element={<PrivateRoute element={<FeeContribution />} />}
+            path="/feehousehold/expand/:id"
+            element={<PrivateRoute element={<HouseholdFeeExpandPage />} />}
           ></Route>
           <Route
-            path="/feehousehold/expand/:id"
+            path="/feehousehold/manage"
             element={<PrivateRoute element={<HouseholdFeeManagePage />} />}
           ></Route>
           <Route
@@ -129,26 +122,6 @@ function App() {
           <Route
             path="/GetStatistic"
             element={<PrivateRoute element={<Statistic />} />}
-          ></Route>
-          <Route
-            path="/statistics/fee"
-            element={<PrivateRoute element={<CreatedList />} />}
-          ></Route>
-          <Route
-            path="/HouseholdContributionList/create"
-            element={
-              <PrivateRoute
-                element={<CreateHouseholdContributionList />}
-              ></PrivateRoute>
-            }
-          ></Route>
-          <Route
-            path="/HouseholdContributionList/:id"
-            element={
-              <PrivateRoute
-                element={<ContributionHouseholdList />}
-              ></PrivateRoute>
-            }
           ></Route>
           <Route path="*" element={<Navigate to="/login" replace={true} />} />
         </Routes>

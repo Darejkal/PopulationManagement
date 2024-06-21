@@ -17,7 +17,8 @@ export default function UpdateFeeRecurring(props: {
 		frequency: undefined,
 		houseType: undefined,
 		useremail:undefined,
-		weight:"None"
+		weight:"None",
+		required:true
 	});
 
 	useEffect(() => {
@@ -27,7 +28,8 @@ export default function UpdateFeeRecurring(props: {
 				amount: detail.amount,
 				frequency: detail.frequency,
 				houseType: detail.houseType,
-				weight:detail.weight
+				weight:detail.weight,
+				required:detail.required
 			});
 		}
 	}, []);
@@ -49,7 +51,6 @@ export default function UpdateFeeRecurring(props: {
 	return (
 		<div>
 			<Modal
-				style={{ marginTop: "100px" }}
 				show={props.show}
 				onHide={props.handleClose}
 			>
@@ -135,7 +136,21 @@ export default function UpdateFeeRecurring(props: {
 								<option value="HouseSize">Theo kích cỡ nhà</option>
 							</Form.Select>
 						</Form.Group>
-
+						<Form.Group>
+						<Form.Select
+								className="me-4"
+								value={dataUpdate.required?"true":"false"}
+								onChange={(e) => {
+									setDataUpdate({
+										...dataUpdate,
+										required: (e.target.value==="true"),
+									});
+								}}
+							>
+								<option value={"true"}>Bắt buộc</option>
+								<option value={"false"}>Tình nguyện</option>
+							</Form.Select>
+						</Form.Group>
 						<Form.Group>
 							{dataUpdate.houseType === "Individual" && (
 								<div>

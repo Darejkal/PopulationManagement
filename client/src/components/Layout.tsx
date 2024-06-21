@@ -79,15 +79,9 @@ export default function Layout({
 								nelement={<></>}
 							/>
 							<NavDropdown title="Phí và đóng góp" id="contribution-dropdown">
-								<NavDropdown.Item onClick={() => navigate("/statistics/fee")}>
+								<NavDropdown.Item onClick={() => navigate("/feehousehold/manage")}>
 								Xem danh sách
 								</NavDropdown.Item>
-								{/* <NavDropdown.Item onClick={() => navigate("/CreatedList")}>
-									Xem danh sách
-								</NavDropdown.Item> */}
-								{/* <NavDropdown.Item onClick={() => navigate("/GetStatistic")}>
-									Thống kê
-								</NavDropdown.Item> */}
 							</NavDropdown>
 						</Nav>
 						<Nav>

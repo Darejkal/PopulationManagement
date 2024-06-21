@@ -7,7 +7,8 @@ export interface IFee  {
     frequency: "yearly" | "monthly";
 	houseType: "Penhouse"|"House"|"Kiot"|"Underground"|"All"|"Individual";
     weight:"None"|"HouseSize",
-    useremail?:string
+    useremail?:string,
+    required:boolean
 }
 
 const FeeSchema: Schema = new mongoose.Schema(
@@ -40,6 +41,10 @@ const FeeSchema: Schema = new mongoose.Schema(
 	    houseType:{
             type:String,
             enum:["Penhouse","House","Kiot","Underground","All","Individual"],
+        },
+        required:{
+            type:Boolean,
+            default:false,
         }
     },
     {

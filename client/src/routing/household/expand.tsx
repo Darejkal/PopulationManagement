@@ -135,6 +135,7 @@ export default function HouseholdExpandPage() {
 									header: "CCCD",
 								},
 							]}
+						
 							renderTopToolbarCustomActions={ ({ table }) => (
 								<Box
 								  sx={{

@@ -9,7 +9,8 @@ export interface IFeeHouseholdRel  {
     relList?: ObjectId;
     name: string;
     startTime:Date,
-    lateTime:Date
+    lateTime:Date,
+    required:boolean
 }
 
 const FeeHouseholdRelSchema: Schema<IFeeHouseholdRel> = new mongoose.Schema(
@@ -51,6 +52,10 @@ const FeeHouseholdRelSchema: Schema<IFeeHouseholdRel> = new mongoose.Schema(
             type: mongoose.Schema.Types.ObjectId,
             ref: "RelList",
         },
+        required:{
+            type:Boolean,
+            default:false,
+        }
     }
 );
 

@@ -18,6 +18,7 @@ export default function CreateFeeRecurring(props: {
 		houseType: "All",
 		weight: "None",
 		useremail: undefined,
+		required:true
 	});
 
 	const handleSubmit = async () => {
@@ -41,7 +42,6 @@ export default function CreateFeeRecurring(props: {
 	return (
 		<div>
 			<Modal
-				style={{ marginTop: "100px" }}
 				show={props.show}
 				onHide={props.handleClose}
 			>
@@ -125,6 +125,21 @@ export default function CreateFeeRecurring(props: {
 							>
 								<option value="None">Không có trọng số</option>
 								<option value="HouseSize">Theo kích cỡ nhà</option>
+							</Form.Select>
+						</Form.Group>
+						<Form.Group>
+						<Form.Select
+								className="me-4"
+								value={dataCreate.required?"true":"false"}
+								onChange={(e) => {
+									setDataCreate({
+										...dataCreate,
+										required: (e.target.value==="true"),
+									});
+								}}
+							>
+								<option value={"true"}>Bắt buộc</option>
+								<option value={"false"}>Tình nguyện</option>
 							</Form.Select>
 						</Form.Group>
 						<Form.Group>

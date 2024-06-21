@@ -99,10 +99,11 @@ const createFeeRel=asyncHandler(async (req: Request, res: Response) => {
             fee: fee.id,
             name: fee.name+" "+suffix,
               // @ts-ignore
-             amount: (fee.weight?fee.amount*v.area:fee.amount),
+            amount: (fee.weight?fee.amount*v.area:fee.amount),
             status: false,
             startTime,
-            lateTime
+            lateTime,
+            required: (fee.required===true?true:false)
           })
         }
         return pre
@@ -124,7 +125,8 @@ const createFeeRel=asyncHandler(async (req: Request, res: Response) => {
         amount: (fee.weight?fee.amount*user.household.area:fee.amount),
         status: false,
         startTime,
-        lateTime
+        lateTime,
+        required: (fee.required===true?true:false)
       })
     }
     await session.commitTransaction();
@@ -169,7 +171,24 @@ const updateFeeRel=asyncHandler(async (req:Request,res:Response)=>{
   } catch(error:any) {
     res.status(500).send({
       message: "Error updating feerel",
-      error: error.message,
+      error: error.message??error,
+    });
+  }
+})
+export const deleteFeeRel=asyncHandler(async (req:Request,res:Response)=>{
+  try {
+    const {id}:{id:string}=req.body;
+    let feeRel=await FeeHouseholdRel.findByIdAndDelete(id);
+    if(!feeRel){
+      throw "Xóa phí thu thất bại"
+    }
+    res.status(200).send({
+      message: "Xóa khoản phí thu thành công",
+    });
+  } catch(error:any) {
+    res.status(500).send({
+      message: "Error updating feerel",
+      error: error.message??error,
     });
   }
 })

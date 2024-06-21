@@ -86,6 +86,7 @@ export default function TableFeeRecurring(props) {
               <TableCell>Số tiền</TableCell>
               <TableCell>Tần suất</TableCell>
               <TableCell>Hành động</TableCell>
+              <TableCell>Bắt buộc</TableCell>
               <TableCell>Email đối tượng</TableCell>
             </TableRow>
           </TableHead>
@@ -130,6 +131,9 @@ export default function TableFeeRecurring(props) {
                   >
                     Thu ngay
                   </Button>
+                </TableCell>
+                <TableCell>
+                  {row.required===true?"Bắt buộc":"Tình nguyện"}
                 </TableCell>
                 <TableCell>
                   {row.useremail??""}

@@ -6,7 +6,8 @@ type IFee = {
 	useremail?: string;
 	frequency?: "yearly" | "monthly";
 	houseType: "Penhouse"|"House"|"Kiot"|"Underground"|"All"|"Individual";
-	weight:"None"|"HouseSize"
+	weight:"None"|"HouseSize",
+	required:boolean
 };
 type IContribution = {
 	_id?: string;
@@ -89,6 +90,7 @@ type IFeeHouseholdRel = {
 	household: string;
 	fee: string;
 	relList: string;
+	required:boolean;
 };
 type IFeeHouseholdRelPopulated = {
 	household: IHousehold;

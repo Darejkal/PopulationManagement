@@ -1,5 +1,4 @@
-
-    import * as React from 'react';
+import * as React from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,7 +17,8 @@ import Navbar from 'react-bootstrap/Navbar';
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import InputGroup from 'react-bootstrap/InputGroup';
-    import {createFeeList} from "../../redux/slices/listSlice";
+import {createFeeList} from "../../redux/slices/listSlice";
+import { ThunkDispatch } from '@reduxjs/toolkit';
 
 export default function CreateHouseholdFeeList() {
     // get fee
@@ -104,7 +104,7 @@ export default function CreateHouseholdFeeList() {
                     <Navbar.Toggle aria-controls="navbar-dark-example"/>
                     <Navbar.Collapse id="navbar-dark-example">
                         <Nav style={{marginLeft: 'auto'}}>
-                            <InputGroup size="small" style={{marginRight: "3px"}}>
+                            <InputGroup size="sm" style={{marginRight: "3px"}}>
                                 <InputGroup.Text id="basic-addon1">Tên Bảng</InputGroup.Text>
                                 <Form.Control
                                     aria-label="Tên bảng"
@@ -113,14 +113,14 @@ export default function CreateHouseholdFeeList() {
                                     onChange={handleTableNameChange}
                                 />
                             </InputGroup>
-                            <Form.Select size="small" style={{marginRight: "3px"}} value={area}
+                            <Form.Select size="sm" style={{marginRight: "3px"}} value={area}
                                          onChange={handleAreaChange}>
                                 <option>Khu vực</option>
                                 <option>Quỳnh Lôi</option>
                                 <option>Thanh Nhàn</option>
                                 <option>Bách Khoa</option>
                             </Form.Select>
-                            <Form.Select size="small" style={{marginRight: "3px"}} value={memberNumber}
+                            <Form.Select size="sm" style={{marginRight: "3px"}} value={memberNumber}
                                          onChange={handleMemberNumberChange}>
                                 <option>Số thành viên lớn hơn</option>
                                 <option>0</option>
