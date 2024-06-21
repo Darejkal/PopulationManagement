@@ -10,6 +10,7 @@ import { ThunkDispatch } from "@reduxjs/toolkit";
 import { IStoreType } from "../../redux/store";
 import { useFetch } from "../../utils/useFetch";
 import { toast } from "react-toastify";
+import { isAdmin } from "../../redux/slices/canboSlice";
 import { 
     MaterialReactTable, 
     useMaterialReactTable, 
@@ -45,6 +46,16 @@ export default function HouseholdFeeExpandPage(){
     const [feeRels,setFeeRels]=useState<(IFeeHouseholdRel&{_id:string})[]>([])
     const fetch = useFetch();
 	const [totalDebt,setTotalDebt]=useState<number>(0);
+    const [isCurrentAdmin, setIsCurrentAdmin]=useState<boolean>(false);
+    useEffect(() => {
+		dispatch(isAdmin())
+			.unwrap()
+			.then((v) => {
+				if (v === true) {
+					setIsCurrentAdmin(true)
+				}
+			});
+	}, []);
     useEffect(()=>{
         let debt=feeRels.reduce((pre,val)=>{
             try{
@@ -85,7 +96,7 @@ export default function HouseholdFeeExpandPage(){
             <Table striped bordered>
             <tbody>
             <tr>
-                <td>Tên hộ khẩu</td>
+                <td>Số hộ khẩu</td>
                 <td>{household?.name}</td>
             </tr>
             <tr>
@@ -134,7 +145,7 @@ export default function HouseholdFeeExpandPage(){
                   header: 'Chỉnh sửa', 
                 },
               }}
-            enableRowActions
+            enableRowActions={isCurrentAdmin}
             renderRowActions={({row})=>{
                 let currentdate=Date.now()
                 return (

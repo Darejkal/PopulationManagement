@@ -15,6 +15,7 @@ const houseMapper={
   "Kiot":"Kiot",
   "Underground":"Tầng đế",
   "Individual":"Cá nhân",
+  "All":"Tất cả"
 }
 export default function TableFeeRecurring(props) {
   const [id, setId] = useState(null);

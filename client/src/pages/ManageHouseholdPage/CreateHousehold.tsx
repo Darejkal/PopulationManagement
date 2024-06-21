@@ -112,7 +112,7 @@ function CreateHousehold() {
     <>
       <Form onSubmit={handleSubmit}>
         <Form.Group className="mb-3" controlId="formHouseholdNumber">
-          <Form.Label>Tên hộ khẩu</Form.Label>
+          <Form.Label>Số hộ khẩu</Form.Label>
           <Form.Control
             type="number"
             name="householdNumber"

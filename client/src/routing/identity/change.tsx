@@ -15,6 +15,7 @@ import {useNavigate} from "react-router-dom";
 import {changePassword, loginUser} from "../../redux/slices/userSlice";
 import Layout from "../../components/Layout";
 import { ThunkDispatch } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 function Copyright(props) {
     return (
@@ -44,12 +45,17 @@ export  default function ChangePassword(){
                 oldPassword:data.get('oldPassword'),
                 newPassword:data.get('newPassword'),
             }
+            toast.info("Đang đổi mật khẩu")
             dispatch(changePassword(value))
                 .unwrap()
                 .then(()=>{
+                    toast.dismiss()
+                    toast.success("Đổi mật khẩu thành công!",{delay:200})
                     navigate("/login");
                 }).catch((error)=>{
-                console.log('Login error:',error)
+                    toast.dismiss()
+                    toast.success("Đổi mật khẩu thất bại! Vui lòng thử lại",{delay:200})
+                console.log('Change pass:',error)
             })
 
         }

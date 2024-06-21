@@ -70,7 +70,7 @@ export default function HouseholdExpandPage() {
 			<Table striped bordered>
 				<tbody>
 					<tr>
-						<td>Tên hộ khẩu</td>
+						<td>Số hộ khẩu</td>
 						<td>{household?.name}</td>
 					</tr>
 					<tr>

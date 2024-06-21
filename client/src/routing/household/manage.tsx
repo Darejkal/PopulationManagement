@@ -49,7 +49,7 @@ export default function HouseholdManage() {
 					
 				tableProps={{
 					columns: [
-						{ accessorKey: "name", header: "Tên hộ khẩu" },
+						{ accessorKey: "name", header: "Số hộ khẩu" },
 						{ accessorKey: "area", header: "Diện tích" },
 						{ accessorKey: "address", header: "Địa chỉ" },
 						{ accessorKey: "owner", header: "Chủ" },
@@ -280,7 +280,7 @@ function HouseholdModifyModal({household}:{household:IHousehold & { _id: string 
 								autoComplete="off"
 								inputRef={fields.name.ref}
 								{...fields.name}
-								label={"Tên hộ khẩu"}
+								label={"Số hộ khẩu"}
 								error={!!errors[fields.name.name]}
 								helperText={(errors[fields.name.name]?.message as string) ?? ""}
 							/>
@@ -415,7 +415,7 @@ function CreateHousehold({ show }: { show?: boolean }) {
 								autoComplete="off"
 								inputRef={fields.name.ref}
 								{...fields.name}
-								label={"Tên hộ khẩu"}
+								label={"Số hộ khẩu"}
 								error={!!errors[fields.name.name]}
 								helperText={(errors[fields.name.name]?.message as string) ?? ""}
 							/>
