@@ -1,4 +1,6 @@
-## Getting Started
+# What is this?
+Project for software class. Simple CRUD application with nodejs, mongodb, reactjs
+# Getting Started
 ### Prerequisites
 - [Install NodeJS ](https://nodejs.org/en/download)
 - Install NPM
